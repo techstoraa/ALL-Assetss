@@ -1,0 +1,45 @@
+<div id="ts-workspace-root"></div>
+
+<script type="text/javascript">
+/**
+ * TechStora Headless DOM Ingestion Engine (Open Source Architecture)
+ * Bypasses local CMS buffer constraints via asynchronous remote hydration.
+ */
+(async function() {
+    // CDN Endpoint targeting the centralized public front-end asset
+    const targetUrl = 'https://cdn.jsdelivr.net/gh/techstoraa/techstora-assets@main/index.html';
+    
+    try {
+        // 1. Fetching raw remote HTML within the host domain context
+        const response = await fetch(targetUrl);
+        if (!response.ok) return;
+        const rawHtml = await response.text();
+
+        // 2. Initializing browser DOM parser to isolate application pillars
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(rawHtml, 'text/html');
+
+        // 3. Extracting and injecting scoped CSS assets into document head
+        const styles = doc.querySelectorAll('style');
+        styles.forEach(st => document.head.appendChild(st.cloneNode(true)));
+
+        // 4. Extracting the core UI wrapper and mounting it to workspace root
+        const bodyContent = doc.querySelector('.ts-master-wrapper');
+        if (bodyContent) {
+            document.getElementById('ts-workspace-root').appendChild(bodyContent.cloneNode(true));
+        }
+
+        // 5. Isolating javascript logic, safely sanitizing window scopes, and executing script context
+        const inlineScript = doc.querySelector('script');
+        if (inlineScript) {
+            const cleanJS = inlineScript.textContent.replace(/window\.parent\.document/g, 'window.document');
+            const executionThread = document.createElement('script');
+            executionThread.type = 'text/javascript';
+            executionThread.textContent = cleanJS;
+            document.body.appendChild(executionThread);
+        }
+    } catch (err) {
+        console.error("TechStora Core Runtime Hybridization Failed:", err);
+    }
+})();
+</script>
