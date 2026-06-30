@@ -1,260 +1,199 @@
 <style>
-  /* Core Theme Variables */
-  :root {
-      --ts-bg-main: #0a0e27;
-      --ts-card-bg: rgba(255, 255, 255, 0.03);
-      --ts-card-border: rgba(255, 255, 255, 0.08);
-      --ts-card-hover-border: rgba(0, 217, 255, 0.4);
-      --ts-accent-cyan: #00d9ff;
-      --ts-accent-purple: #8b5cf6;
-      --ts-text-primary: #f5f5f5;
-      --ts-text-muted: #a1a1aa;
-      --ts-error-bg: rgba(220, 38, 38, 0.1);
-      --ts-error-border: rgba(220, 38, 38, 0.3);
-      --ts-error-text: #f87171;
-  }
+    /* Core Theme Variables */
+    :root {
+        --ts-bg-main: #0a0e27;
+        --ts-card-bg: rgba(255, 255, 255, 0.03);
+        --ts-card-border: rgba(255, 255, 255, 0.08);
+        --ts-card-hover-border: rgba(0, 217, 255, 0.4);
+        --ts-accent-cyan: #00d9ff;
+        --ts-accent-purple: #8b5cf6;
+        --ts-text-primary: #f5f5f5;
+        --ts-text-muted: #a1a1aa;
+        --ts-error-bg: rgba(220, 38, 38, 0.1);
+        --ts-error-border: rgba(220, 38, 38, 0.3);
+        --ts-error-text: #f87171;
+    }
 
-  .ts-master-wrapper {
-      width: 100vw;
-      position: relative;
-      left: 50%;
-      right: 50%;
-      margin-left: -50vw;
-      margin-right: -50vw;
-      background: var(--ts-bg-main);
-      color: var(--ts-text-primary);
-      font-family: 'Segoe UI', 'Inter', system-ui, sans-serif;
-      box-sizing: border-box;
-      line-height: 1.6;
-      padding-bottom: 4rem;
-  }
+    body {
+        margin: 0;
+        padding: 0;
+        background: var(--ts-bg-main);
+        color: var(--ts-text-primary);
+        font-family: 'Segoe UI', 'Inter', system-ui, sans-serif;
+    }
 
-  .ts-master-wrapper * { box-sizing: border-box; }
+    .ts-master-wrapper {
+        width: 100%;
+        box-sizing: border-box;
+        line-height: 1.6;
+        padding-bottom: 4rem;
+    }
+    .ts-master-wrapper * { box-sizing: border-box; }
 
-  .ts-container {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 2rem 1.5rem;
-  }
+    .ts-container { max-width: 1140px; margin: 0 auto; padding: 2rem 1.5rem; }
 
-  /* Hero Section */
-  .ts-hero {
-      text-align: center;
-      padding: 3rem 1.5rem 2rem 1.5rem;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-      background: radial-gradient(circle at top, rgba(139, 92, 246, 0.1) 0%, transparent 60%);
-  }
-  .ts-hero h1 {
-      font-size: clamp(2rem, 5vw, 3.2rem);
-      margin: 0 0 0.8rem 0;
-      color: #fff;
-      font-weight: 700;
-  }
-  .ts-hero p {
-      font-size: 1.05rem;
-      color: var(--ts-text-muted);
-      max-width: 680px;
-      margin: 0 auto;
-  }
+    /* Hero Section */
+    .ts-hero {
+        text-align: center; padding: 3rem 1.5rem 2rem 1.5rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        background: radial-gradient(circle at top, rgba(139, 92, 246, 0.1) 0%, transparent 60%);
+    }
+    .ts-hero h1 { font-size: clamp(2rem, 5vw, 3.2rem); margin: 0 0 0.8rem 0; color: #fff; font-weight: 700; }
+    .ts-hero p { font-size: 1.05rem; color: var(--ts-text-muted); max-width: 680px; margin: 0 auto; }
 
-  /* Input Controller */
-  .ts-input-module {
-      background: var(--ts-card-bg);
-      border: 1px solid var(--ts-card-border);
-      border-radius: 12px;
-      padding: 1.5rem;
-      margin-bottom: 2rem;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-  }
+    /* Input Controller Module */
+    .ts-input-module {
+        background: var(--ts-card-bg); border: 1px solid var(--ts-card-border);
+        border-radius: 12px; padding: 1.5rem; margin-bottom: 2rem;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
+    .ts-input-row { display: flex; flex-direction: column; gap: 12px; }
+    @media (min-width: 768px) { .ts-input-row { flex-direction: row; align-items: stretch; } }
 
-  .ts-input-row {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-  }
-  @media (min-width: 768px) {
-      .ts-input-row { flex-direction: row; align-items: stretch; }
-  }
+    .ts-input {
+        flex: 1; padding: 16px 20px; border: 1px solid rgba(255, 255, 255, 0.15);
+        border-radius: 8px; font-size: 15px; background: rgba(0, 0, 0, 0.4);
+        color: var(--ts-text-primary); outline: none; transition: all 0.3s ease; width: 100%;
+    }
+    .ts-input:focus { border-color: var(--ts-accent-cyan); box-shadow: 0 0 0 3px rgba(0, 217, 255, 0.15); }
 
-  .ts-input {
-      flex: 1;
-      padding: 16px 20px;
-      border: 1px solid rgba(255, 255, 255, 0.15);
-      border-radius: 8px;
-      font-size: 15px;
-      background: rgba(0, 0, 0, 0.4);
-      color: var(--ts-text-primary);
-      outline: none;
-      transition: all 0.3s ease;
-      width: 100%;
-  }
-  .ts-input:focus { border-color: var(--ts-accent-cyan); box-shadow: 0 0 0 3px rgba(0, 217, 255, 0.15); }
+    .ts-btn {
+        padding: 16px 32px; background: linear-gradient(135deg, var(--ts-accent-cyan), var(--ts-accent-purple));
+        color: #fff; border: none; border-radius: 8px; font-size: 15px; font-weight: 700;
+        cursor: pointer; transition: transform 0.2s ease, opacity 0.2s ease; white-space: nowrap;
+    }
+    .ts-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+    .ts-btn:hover:not(:disabled) { transform: translateY(-2px); opacity: 0.9; }
 
-  .ts-btn {
-      padding: 16px 32px;
-      background: linear-gradient(135deg, var(--ts-accent-cyan), var(--ts-accent-purple));
-      color: #fff;
-      border: none;
-      border-radius: 8px;
-      font-size: 15px;
-      font-weight: 700;
-      cursor: pointer;
-      transition: transform 0.2s ease, opacity 0.2s ease;
-      white-space: nowrap;
-  }
-  .ts-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
-  .ts-btn:hover:not(:disabled) { transform: translateY(-2px); opacity: 0.9; }
+    /* Asynchronous Processing Matrix */
+    .ts-process-matrix {
+        display: none; margin-top: 20px; background: rgba(0, 0, 0, 0.2);
+        padding: 16px; border-radius: 8px; border: 1px dashed rgba(255, 255, 255, 0.1);
+    }
+    .ts-matrix-header {
+        display: flex; justify-content: space-between; font-size: 13px;
+        color: var(--ts-accent-cyan); font-weight: 600; margin-bottom: 10px;
+        text-transform: uppercase; letter-spacing: 1px;
+    }
+    .ts-matrix-track { width: 100%; height: 6px; background: rgba(255, 255, 255, 0.05); border-radius: 10px; overflow: hidden; }
+    .ts-matrix-fill { height: 100%; width: 0%; background: linear-gradient(90deg, var(--ts-accent-cyan), var(--ts-accent-purple)); border-radius: 10px; transition: width 0.1s linear; box-shadow: 0 0 10px rgba(0, 217, 255, 0.5); }
 
-  /* Dynamic Outputs */
-  .ts-output { margin-top: 1.5rem; }
+    /* Component Alert States */
+    .ts-alert { padding: 16px 20px; border-radius: 8px; font-size: 14px; font-weight: 500; display: block; margin-bottom: 1rem; }
+    .ts-alert-err { background: var(--ts-error-bg); color: var(--ts-error-text); border: 1px solid var(--ts-error-border); }
+    .ts-alert-warn { background: rgba(234,179,8,0.1); color: #facc15; border: 1px solid rgba(234,179,8,0.3); }
+    .ts-alert-info { background: rgba(0, 217, 255, 0.05); border: 1px solid rgba(0, 217, 255, 0.2); color: var(--ts-accent-cyan); }
 
-  /* Loading State */
-  .ts-loading-row {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-      padding: 2rem;
-      font-size: 15px;
-      color: var(--ts-accent-cyan);
-      background: rgba(0,0,0,0.2);
-      border-radius: 12px;
-      border: 1px dashed rgba(0,217,255,0.3);
-  }
-  .ts-spinner {
-      width: 24px; height: 24px;
-      border: 3px solid rgba(0,217,255,0.2);
-      border-top-color: var(--ts-accent-cyan);
-      border-radius: 50%;
-      animation: ts-spin 0.8s linear infinite;
-  }
-  @keyframes ts-spin { to { transform: rotate(360deg); } }
+    /* Workspace & Layout Containers */
+    .ts-workspace { display: none; flex-direction: column; gap: 1.5rem; }
 
-  /* Alert States */
-  .ts-alert { padding: 16px 20px; border-radius: 8px; font-size: 14px; font-weight: 500; display: block; margin-bottom: 1rem; }
-  .ts-alert-err { background: var(--ts-error-bg); color: var(--ts-error-text); border: 1px solid var(--ts-error-border); }
-  .ts-alert-warn { background: rgba(234,179,8,0.1); color: #facc15; border: 1px solid rgba(234,179,8,0.3); }
+    .ts-card {
+        background: var(--ts-card-bg); border: 1px solid var(--ts-card-border);
+        border-radius: 12px; padding: 1.5rem; width: 100%;
+    }
+    .ts-card-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; flex-wrap: wrap; gap: 10px; }
+    .ts-card-title { font-size: 0.95rem; font-weight: 700; text-transform: uppercase; color: var(--ts-accent-purple); letter-spacing: 1.5px; margin: 0; }
 
-  /* Sequential Data Cards */
-  .ts-workspace { display: flex; flex-direction: column; gap: 1.5rem; }
+    /* Utility Action Buttons */
+    .ts-action-group { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+    .ts-btn-copy {
+        background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1);
+        color: var(--ts-text-primary); border-radius: 6px; padding: 6px 12px;
+        font-size: 12px; font-weight: 600; cursor: pointer; transition: all 0.2s ease;
+    }
+    .ts-btn-copy:hover { background: rgba(255, 255, 255, 0.1); border-color: rgba(255, 255, 255, 0.2); }
+    .ts-btn-primary {
+        background: var(--ts-accent-cyan); color: #0a0e27; border: none;
+        border-radius: 6px; padding: 6px 14px; font-size: 12px; font-weight: 700;
+        cursor: pointer; transition: all 0.2s ease; text-transform: uppercase; letter-spacing: 0.5px;
+    }
+    .ts-btn-primary:hover { background: #00bce6; transform: translateY(-1px); }
 
-  .ts-card {
-      background: var(--ts-card-bg);
-      border: 1px solid var(--ts-card-border);
-      border-radius: 12px;
-      padding: 1.5rem;
-      width: 100%;
-  }
+    /* View Controller Sorting Component */
+    .ts-sort-select {
+        background: rgba(0, 0, 0, 0.4); border: 1px solid rgba(255, 255, 255, 0.15);
+        color: var(--ts-text-primary); border-radius: 6px; padding: 6px 12px;
+        font-size: 12px; font-weight: 600; cursor: pointer; outline: none;
+    }
+    .ts-sort-select:focus { border-color: var(--ts-accent-cyan); }
 
-  .ts-card-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 1rem;
-  }
-  .ts-card-title {
-      font-size: 0.85rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      color: var(--ts-accent-purple);
-      letter-spacing: 1.5px;
-      margin: 0;
-  }
+    /* Playlist Metric Presentation Architecture */
+    .ts-pl-overview { display: flex; gap: 20px; align-items: center; flex-wrap: wrap; margin-bottom: 1rem; }
+    .ts-pl-thumb { width: 160px; aspect-ratio: 16/9; border-radius: 8px; border: 1px solid rgba(255,255,255,0.1); object-fit: cover; background: #000; }
+    .ts-pl-stats { display: flex; flex-direction: column; gap: 5px; }
+    .ts-pl-stat-num { font-size: 2rem; font-weight: 800; color: #fff; line-height: 1; }
+    .ts-pl-stat-lbl { font-size: 0.8rem; font-weight: 600; color: var(--ts-text-muted); text-transform: uppercase; letter-spacing: 1px; }
 
-  /* Utility Copy Button */
-  .ts-btn-copy {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      color: var(--ts-accent-cyan);
-      border-radius: 6px;
-      padding: 6px 12px;
-      font-size: 11px;
-      font-weight: 700;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      text-transform: uppercase;
-  }
-  .ts-btn-copy:hover { background: var(--ts-accent-cyan); color: #0a0e27; }
+    /* Tabular Node Layout */
+    .ts-table-wrap { overflow-x: auto; border-radius: 8px; border: 1px solid var(--ts-card-border); background: rgba(0,0,0,0.2); }
+    .ts-table-wrap::-webkit-scrollbar { height: 6px; }
+    .ts-table-wrap::-webkit-scrollbar-track { background: rgba(0,0,0,0.2); }
+    .ts-table-wrap::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 4px; }
 
-  /* Card Contents */
-  .ts-embed-container {
-      width: 100%; aspect-ratio: 16 / 9;
-      border-radius: 8px; overflow: hidden;
-      background: #000; border: 1px solid rgba(255, 255, 255, 0.1);
-  }
-  .ts-embed-container iframe { width: 100%; height: 100%; border: none; }
+    table.ts-table { width: 100%; border-collapse: collapse; font-size: 14px; text-align: left; }
+    table.ts-table th { 
+        padding: 12px 16px; background: rgba(255,255,255,0.03); font-size: 11px; 
+        font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; 
+        color: var(--ts-text-muted); white-space: nowrap; border-bottom: 1px solid var(--ts-card-border); 
+    }
+    table.ts-table td { padding: 12px 16px; border-bottom: 1px solid rgba(255,255,255,0.03); vertical-align: middle; }
+    table.ts-table tr:last-child td { border-bottom: none; }
+    table.ts-table tr:hover td { background: rgba(255,255,255,0.02); }
 
-  .ts-meta-title { font-size: 1.3rem; font-weight: 700; line-height: 1.4; color: #fff; margin-bottom: 0.4rem; }
-  .ts-meta-channel { font-size: 1rem; font-weight: 600; color: var(--ts-accent-cyan); }
+    .ts-td-thumb img { width: 80px; aspect-ratio: 16/9; border-radius: 4px; object-fit: cover; border: 1px solid rgba(255,255,255,0.1); }
+    .ts-td-title { max-width: 250px; font-weight: 600; line-height: 1.4; }
+    .ts-td-title a { color: #fff; text-decoration: none; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; transition: color 0.2s; }
+    .ts-td-title a:hover { color: var(--ts-accent-cyan); }
 
-  .ts-desc-box {
-      font-size: 0.95rem; line-height: 1.6; color: var(--ts-text-muted);
-      white-space: pre-wrap; max-height: 250px; overflow-y: auto;
-      background: rgba(0,0,0,0.2); padding: 1rem; border-radius: 8px;
-      border: 1px solid rgba(255,255,255,0.05);
-  }
-  .ts-desc-box::-webkit-scrollbar { width: 6px; }
-  .ts-desc-box::-webkit-scrollbar-track { background: rgba(0,0,0,0.2); border-radius: 4px; }
-  .ts-desc-box::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 4px; }
+    .ts-td-id { font-family: 'Fira Mono', monospace; font-size: 12px; color: var(--ts-accent-purple); font-weight: 600; }
+    .ts-td-date { white-space: nowrap; color: var(--ts-text-muted); font-size: 13px; }
+    .ts-td-views { font-weight: 700; text-align: right; white-space: nowrap; color: #fff; }
 
-  .ts-stats-grid {
-      display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem;
-  }
-  @media (min-width: 640px) { .ts-stats-grid { grid-template-columns: repeat(3, 1fr); } }
-
-  .ts-stat-block {
-      background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.05);
-      border-radius: 8px; padding: 1rem; text-align: center;
-  }
-  .ts-stat-val { font-size: 1.4rem; font-weight: 800; color: #fff; display: block; margin-bottom: 0.2rem; }
-  .ts-stat-lbl { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; color: var(--ts-text-muted); letter-spacing: 1px; }
-
-  .ts-tag-cluster { display: flex; flex-wrap: wrap; gap: 8px; }
-  .ts-tag-node {
-      font-size: 0.85rem; font-weight: 600; padding: 6px 14px;
-      background: rgba(139, 92, 246, 0.15); border: 1px solid rgba(139, 92, 246, 0.3);
-      color: #c084fc; border-radius: 20px; word-break: break-word;
-  }
-  .ts-login-link { display: inline-block; margin-top: 10px; padding: 8px 20px; background: var(--ts-accent-cyan); color: #0a0e27; border-radius: 7px; font-size: 13px; font-weight: 700; text-decoration: none; }
-  .ts-diag-pre { font-family: 'Fira Mono', monospace; font-size: 12px; white-space: pre-wrap; word-break: break-all; color: var(--ts-error-text); margin: 0; max-height: 340px; overflow-y: auto; }
-</style>
+    .ts-copy-icon { cursor: pointer; opacity: 0.6; margin-left: 6px; transition: opacity 0.2s; }
+    .ts-copy-icon:hover { opacity: 1; color: var(--ts-accent-cyan); }
+  </style>
+</head>
+<body>
 
 <div class="ts-master-wrapper">
   <div class="ts-hero">
-      <h1>Video <span style="color: #00d9ff;">Analysis</span></h1>
-      <p>Extract core metadata, tags, and metrics securely mapped directly from any YouTube node.</p>
+      <h1>Playlist Bulk <span style="color: #00d9ff;">Mapper</span></h1>
+      <p>Extract bulk metrics, video IDs, and real-time performance data instantly from any YouTube playlist.</p>
   </div>
 
   <div class="ts-container">
+    <div id="plm-sys-alert"></div>
+
     <div class="ts-input-module">
       <div class="ts-input-row">
-        <input type="url" id="vmt-url" class="ts-input" placeholder="https://www.youtube.com/watch?v=..." spellcheck="false" autocomplete="off" />
-        <button id="vmt-btn" class="ts-btn" onclick="vmtRun()">Extract Node</button>
+        <input type="url" id="plm-url" class="ts-input" placeholder="https://www.youtube.com/playlist?list=..." spellcheck="false" autocomplete="off" />
+        <button id="plm-btn" class="ts-btn" onclick="plmRun()">Map Playlist</button>
+      </div>
+
+      <div id="plm-operation-matrix" class="ts-process-matrix">
+          <div class="ts-matrix-header">
+              <span id="plm-matrix-status">Establishing Secure Tunnel...</span>
+              <span id="plm-matrix-percent">0%</span>
+          </div>
+          <div class="ts-matrix-track">
+              <div id="plm-matrix-fill" class="ts-matrix-fill"></div>
+          </div>
       </div>
     </div>
 
-    <div id="vmt-out" class="ts-output"></div>
+    <div id="plm-out" class="ts-workspace"></div>
   </div>
 </div>
 
 <script>
-/* Global Copy Functions for Inline Execution */
-window.tsCopyTextData = function(btn, targetId) {
-    const txt = document.getElementById(targetId).innerText;
-    navigator.clipboard.writeText(txt).then(() => {
-        const og = btn.innerText;
-        btn.innerText = 'Copied!';
-        setTimeout(() => btn.innerText = og, 1500);
-    });
-};
-
 (function() {
-  const DEBUG_MODE = false;
   const API_ENDPOINT = 'https://www.techstora.com/api/v1/youtube/proxy';
+  let _cachedItems = [];
 
+  /* Secure Session Ingestion Loop over Parent Window */
   function getUID() {
     try {
-      const scripts = document.getElementsByTagName('script');
+      const scripts = window.parent.document.getElementsByTagName('script');
       for (let s of scripts) {
         const t = s.innerHTML || s.textContent || '';
         if (t.includes('__session_info__') && t.includes('"uid"')) {
@@ -275,153 +214,235 @@ window.tsCopyTextData = function(btn, targetId) {
     return x.toLocaleString();
   }
 
-  function extractYouTubeId(url) {
-    const match = url.match(/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/i);
-    return (match && match[1]) ? match[1] : null;
+  function fmtDate(d) {
+    if (!d) return '—';
+    try { return new Date(d).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }); }
+    catch(e) { return d; }
   }
 
-  function setOut(html) {
-    document.getElementById('vmt-out').innerHTML = html;
+  function triggerSystemAlert(typeClass, htmlMessage) {
+      const alertNode = document.getElementById('plm-sys-alert');
+      if (!htmlMessage) { alertNode.style.display = 'none'; return; }
+      alertNode.className = `ts-alert ${typeClass}`;
+      alertNode.innerHTML = htmlMessage;
+      alertNode.style.display = 'block';
   }
 
-  function setBtn(loading) {
-    const b = document.getElementById('vmt-btn');
-    b.disabled = loading;
-    b.textContent = loading ? 'Extracting...' : 'Extract Node';
+  function enforceProcessingDelay(targetDurationMS, updateCallback) {
+      return new Promise((resolve) => {
+          const startTime = Date.now();
+          const timerSequence = setInterval(() => {
+              const elapsedTime = Date.now() - startTime;
+              const ratio = Math.min(elapsedTime / targetDurationMS, 1);
+              updateCallback(ratio);
+              if (ratio >= 1) { clearInterval(timerSequence); resolve(); }
+          }, 80);
+      });
   }
 
-  window.vmtRun = async function() {
-    const url = document.getElementById('vmt-url').value.trim();
-    const vidId = extractYouTubeId(url);
+  window._plmExport = function() {
+    const header = ['#', 'Title', 'Video ID', 'Published Date', 'Views'];
+    const rows = _cachedItems.map((it, i) => [
+      i + 1,
+      `"${(it.title || '').replace(/"/g, '""')}"`,
+      it.videoId || '',
+      it.publishedAt ? new Date(it.publishedAt).toISOString().split('T')[0] : '',
+      it.viewCount != null ? it.viewCount : ''
+    ]);
+    const csv = [header, ...rows].map(r => r.join(',')).join('\n');
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = 'techstora_playlist_map.csv';
+    link.click();
+    URL.revokeObjectURL(link.href);
+  };
 
-    if (!vidId) {
-      setOut(`<div class="ts-alert ts-alert-err"><strong>Validation Error:</strong> Enter a valid YouTube video URL format.</div>`);
+  window._plmCopyAllIDs = function(btn) {
+      if(_cachedItems.length === 0) return;
+      const ids = _cachedItems.map(it => it.videoId).filter(Boolean);
+      navigator.clipboard.writeText(ids.join(', ')).then(() => {
+          const og = btn.innerText;
+          btn.innerText = 'Copied!';
+          setTimeout(() => btn.innerText = og, 1500);
+      });
+  };
+
+  window._plmCopyText = function(text, iconNode) {
+      navigator.clipboard.writeText(text).then(() => {
+          iconNode.style.color = '#00d9ff';
+          setTimeout(() => iconNode.style.color = 'inherit', 1500);
+      });
+  };
+
+  function sortPlaylistItems(items, sortMode) {
+    const copy = [...items];
+    if (sortMode === 'views_desc') {
+      copy.sort((a, b) => (Number(b.viewCount) || 0) - (Number(a.viewCount) || 0));
+    } else if (sortMode === 'views_asc') {
+      copy.sort((a, b) => (Number(a.viewCount) || 0) - (Number(b.viewCount) || 0));
+    }
+    return copy;
+  }
+
+  window._plmSortChange = function(sortMode) {
+    const sortedItems = sortPlaylistItems(_cachedItems, sortMode);
+    const tbody = document.getElementById('plm-table-body');
+    if (tbody) {
+      tbody.innerHTML = buildTableRows(sortedItems);
+    }
+  };
+
+  function buildTableRows(items) {
+    return items.map((it, i) => `
+      <tr>
+        <td style="opacity:0.4;font-size:12px;">${i + 1}</td>
+        <td class="ts-td-thumb">
+            <img src="https://img.youtube.com/vi/${it.videoId}/mqdefault.jpg" alt="Thumb" loading="lazy" onerror="this.src='https://via.placeholder.com/120x68/0a0e27/00d9ff?text=No+Thumb'">
+        </td>
+        <td class="ts-td-title" title="${(it.title || '').replace(/"/g, '&quot;')}">
+          <a href="https://www.youtube.com/watch?v=${it.videoId}" target="_blank" rel="noopener">${it.title || 'Untitled'}</a>
+        </td>
+        <td class="ts-td-id">
+            ${it.videoId || '—'} 
+            <span class="ts-copy-icon" onclick="_plmCopyText('${it.videoId}', this)" title="Copy ID">📋</span>
+        </td>
+        <td class="ts-td-date">${fmtDate(it.publishedAt)}</td>
+        <td class="ts-td-views">${fmtNum(it.viewCount)}</td>
+      </tr>`).join('');
+  }
+
+  function renderDarkEcosystemLayout(json) {
+    const items = json.items || [];
+    _cachedItems = items;
+    const coverThumb = items.length > 0 ? `https://img.youtube.com/vi/${items[0].videoId}/mqdefault.jpg` : '';
+    const truncNote = json.truncated ? `<div class="ts-alert ts-alert-info">⚠️ Payload limitation active: Showing the first 200 items of this playlist.</div>` : '';
+
+    return `
+      <div class="ts-card">
+          <div class="ts-card-header">
+              <div class="ts-card-title">Playlist Architecture Overview</div>
+              <div class="ts-action-group">
+                  <select class="ts-sort-select" onchange="_plmSortChange(this.value)">
+                      <option value="default">Original Order</option>
+                      <option value="views_desc">Top Performing First</option>
+                      <option value="views_asc">Lowest Performing First</option>
+                  </select>
+                  <button class="ts-btn-copy" onclick="_plmCopyAllIDs(this)">Copy All IDs</button>
+                  <button class="ts-btn-primary" onclick="_plmExport()">Export CSV</button>
+              </div>
+          </div>
+          <div class="ts-pl-overview">
+              ${coverThumb ? `<img src="${coverThumb}" class="ts-pl-thumb" alt="Playlist Cover">` : ''}
+              <div class="ts-pl-stats">
+                  <span class="ts-pl-stat-num">${items.length}</span>
+                  <span class="ts-pl-stat-lbl">Total Valid Nodes Extracted</span>
+              </div>
+          </div>
+      </div>
+      <div class="ts-card" style="padding: 0; border: none; background: transparent;">
+          <div class="ts-table-wrap">
+              <table class="ts-table">
+                  <thead>
+                      <tr>
+                          <th style="width:32px;">#</th>
+                          <th style="width:100px;">Node</th>
+                          <th>Identity Title</th>
+                          <th>Secure ID</th>
+                          <th>Published</th>
+                          <th style="text-align:right;">Views</th>
+                      </tr>
+                  </thead>
+                  <tbody id="plm-table-body">${buildTableRows(items)}</tbody>
+              </table>
+          </div>
+          ${truncNote}
+      </div>`;
+  }
+
+  window.plmRun = async function() {
+    const url = document.getElementById('plm-url').value.trim();
+    triggerSystemAlert(null, null);
+    document.getElementById('plm-out').style.display = 'none';
+
+    if (!url.includes('youtube.com') && !url.includes('youtu.be')) {
+      triggerSystemAlert('ts-alert-err', '<strong>Validation Error:</strong> Enter a valid YouTube playlist URL.');
+      return;
+    }
+    if (!url.includes('list=')) {
+      triggerSystemAlert('ts-alert-err', '<strong>Invalid Format:</strong> URL must contain a valid playlist ID (list=...).');
       return;
     }
 
-    setBtn(true);
-    setOut(`<div class="ts-loading-row"><div class="ts-spinner"></div><span>Querying API Pipeline...</span></div>`);
+    const btn = document.getElementById('plm-btn');
+    const matrixBox = document.getElementById('plm-operation-matrix');
+    const matrixFill = document.getElementById('plm-matrix-fill');
+    const matrixStatus = document.getElementById('plm-matrix-status');
+    const matrixPercent = document.getElementById('plm-matrix-percent');
 
-    const payload = { tool_type: 'video_meta_tags', target_url: url, uid: getUID() };
+    btn.disabled = true;
+    matrixBox.style.display = 'block';
+
+    const dynamicWaitTarget = Math.floor(Math.random() * (7000 - 4000 + 1)) + 4000;
+    const payload = { tool_type: 'playlist_bulk_mapper', target_url: url, uid: getUID() };
+
+    let networkPromise = fetch(API_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
+      body: JSON.stringify(payload)
+    });
+
+    await enforceProcessingDelay(dynamicWaitTarget, (ratio) => {
+        const percentInt = Math.floor(ratio * 100);
+        matrixFill.style.width = `${percentInt}%`;
+        matrixPercent.textContent = `${percentInt}%`;
+        if (percentInt < 30) matrixStatus.textContent = 'Resolving Target Playlist ID...';
+        else if (percentInt < 60) matrixStatus.textContent = 'Extracting Video Nodes...';
+        else if (percentInt < 85) matrixStatus.textContent = 'Fetching Performance Metrics...';
+        else matrixStatus.textContent = 'Compiling Data Table...';
+    });
 
     try {
-      const res = await fetch(API_ENDPOINT, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        credentials: 'include',
-        body: JSON.stringify(payload)
-      });
+      const res = await networkPromise;
       const raw = await res.text();
 
       if (!res.ok) {
         if (res.status === 429) {
           let msg = 'Usage limit reached.';
           try { msg = JSON.parse(raw).error || msg; } catch(e) {}
-          setBtn(false);
-          setOut(`<div class="ts-alert ts-alert-warn">🛑 ${msg}</div><a class="ts-login-link" href="/web/login">Log in to extend operations</a>`);
+          triggerSystemAlert('ts-alert-warn', `🛑 ${msg}<br><a href="/web/login" target="_parent" style="color:var(--ts-accent-cyan);">Log in to extend limits</a>`);
           return;
         }
         if (res.status === 401) {
-          setBtn(false);
-          setOut(`<div class="ts-alert ts-alert-warn">Authorization required to access pipeline.</div><a class="ts-login-link" href="/web/login">Log In</a>`);
+          triggerSystemAlert('ts-alert-warn', `Authorization required. <a href="/web/login" target="_parent" style="color:var(--ts-accent-cyan);">Log In</a>`);
           return;
         }
-        throw new Error(`HTTP_${res.status} | ${raw.substring(0, 800)}`);
+        throw new Error(`HTTP_${res.status}`);
       }
 
       let data;
-      try { data = JSON.parse(raw); } catch(e) { throw new Error(`JSON_PARSE_FAILED | ${raw.substring(0, 800)}`); }
+      try { data = JSON.parse(raw); } catch(e) { throw new Error('JSON_PARSE_FAILED'); }
 
       const json = data.youtube_raw_json;
       if (!json || !json.items || json.items.length === 0) {
-        setBtn(false);
-        setOut(`<div class="ts-alert ts-alert-err"><strong>Target Offline:</strong> Video not found or restrictions applied by creator.</div>`);
+        triggerSystemAlert('ts-alert-err', '<strong>Target Offline:</strong> Playlist not found, empty, or set to private.');
         return;
       }
 
-      const item = json.items[0];
-      const sn = item.snippet || {};
-      const st = item.statistics || {};
-      const tags = sn.tags || [];
-
-      // Build Tags HTML
-      const tagsHtml = tags.length
-        ? `<div class="ts-tag-cluster">${tags.map(t => `<span class="ts-tag-node">${t}</span>`).join('')}</div>`
-        : `<span style="font-size: 0.9rem; color: rgba(255,255,255,0.4); font-style: italic;">[NO_TAGS_DETECTED]</span>`;
-
-      // Main UI Injection
-      setBtn(false);
-      setOut(`
-        <div class="ts-workspace">
-          
-          <div class="ts-card">
-              <div class="ts-card-header">
-                  <div class="ts-card-title">Node Verification Trap</div>
-              </div>
-              <div class="ts-embed-container">
-                  <iframe src="https://www.youtube.com/embed/${vidId}?rel=0" allowfullscreen></iframe>
-              </div>
-          </div>
-
-          <div class="ts-card">
-              <div class="ts-card-header">
-                  <div class="ts-card-title">Target Identity Context</div>
-                  <button class="ts-btn-copy" onclick="tsCopyTextData(this, 'ts-val-title')">Copy Title</button>
-              </div>
-              <div id="ts-val-title" class="ts-meta-title">${sn.title || '—'}</div>
-              <div class="ts-meta-channel">${sn.channelTitle || '—'}</div>
-          </div>
-
-          <div class="ts-card">
-              <div class="ts-card-header">
-                  <div class="ts-card-title">Content Matrix</div>
-                  <button class="ts-btn-copy" onclick="tsCopyTextData(this, 'ts-val-desc')">Copy Desc</button>
-              </div>
-              <div id="ts-val-desc" class="ts-desc-box">${sn.description || 'No descriptive data mapped.'}</div>
-          </div>
-
-          <div class="ts-card">
-              <div class="ts-card-header">
-                  <div class="ts-card-title">Performance Telemetry</div>
-              </div>
-              <div class="ts-stats-grid">
-                  <div class="ts-stat-block">
-                      <span class="ts-stat-val">${fmtNum(st.viewCount)}</span>
-                      <span class="ts-stat-lbl">Views</span>
-                  </div>
-                  <div class="ts-stat-block">
-                      <span class="ts-stat-val">${fmtNum(st.likeCount)}</span>
-                      <span class="ts-stat-lbl">Likes</span>
-                  </div>
-                  <div class="ts-stat-block">
-                      <span class="ts-stat-val">${fmtNum(st.commentCount)}</span>
-                      <span class="ts-stat-lbl">Comments</span>
-                  </div>
-              </div>
-          </div>
-
-          <div class="ts-card">
-              <div class="ts-card-header">
-                  <div class="ts-card-title">Optimization Vectors</div>
-                  <button class="ts-btn-copy" onclick="tsCopyTextData(this, 'ts-val-tags-raw')">Copy All Tags</button>
-              </div>
-              <div id="ts-val-tags-raw" style="display:none;">${tags.join(', ')}</div>
-              ${tagsHtml}
-          </div>
-
-        </div>
-      `);
+      const outNode = document.getElementById('plm-out');
+      outNode.innerHTML = renderDarkEcosystemLayout(json);
+      outNode.style.display = 'flex';
 
     } catch(err) {
-      setBtn(false);
-      if (DEBUG_MODE) {
-        const dump = JSON.stringify(err, Object.getOwnPropertyNames(err), 2);
-        setOut(`<div class="ts-alert ts-alert-err"><strong>RAW FAULT:</strong><hr style="border-color:rgba(200,0,0,0.2);margin:8px 0;"><pre class="ts-diag-pre">${dump}</pre></div>`);
-      } else {
-        setOut(`<div class="ts-alert ts-alert-err">Pipeline compromised. Check server stability and try again.</div>`);
-      }
+      triggerSystemAlert('ts-alert-err', '<strong>System Fault:</strong> API connection failed or pipeline was compromised. Try again.');
+    } finally {
+      btn.disabled = false;
+      matrixBox.style.display = 'none';
+      matrixFill.style.width = '0%';
     }
   };
 })();
-    </script>
-    
+</script>
+</body>
+</html>
