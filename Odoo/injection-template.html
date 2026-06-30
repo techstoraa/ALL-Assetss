@@ -1,35 +1,40 @@
+<!-- 
+  TechStora HydraJS Core Engine v1.0.9 (Zero-Cache Live Development Build)
+  Architecture Pattern: Headless DOM Ingestion Engine
+  Purpose: Real-time Hybridization via Bypassing CDN Edge Buffer
+-->
 <div id="ts-workspace-root"></div>
 
 <script type="text/javascript">
 /**
- * TechStora Headless DOM Ingestion Engine (Open Source Architecture)
- * Bypasses local CMS buffer constraints via asynchronous remote hydration.
+ * TechStora Headless DOM Ingestion Engine (Live CDN Mode)
+ * Bypasses persistent caching layers securely using jsDelivr's absolute root.
  */
 (async function() {
-    // CDN Endpoint targeting the centralized public front-end asset
-    const targetUrl = 'https://cdn.jsdelivr.net/gh/techstoraa/techstora-assets@main/index.html';
+    // Dynamic CDN Target pointing directly to the live GitHub repository commit thread
+    const targetUrl = 'https://cdn.jsdelivr.net/gh/techstoraa/ALL-Assetss@main/Frontend%20Template/Home/TechStora.html';
     
     try {
-        // 1. Fetching raw remote HTML within the host domain context
-        const response = await fetch(targetUrl);
+        // Fetching remote asset via CDN proxy to ensure correct HTML MIME-type execution
+        const response = await fetch(targetUrl, { cache: 'no-store' });
         if (!response.ok) return;
         const rawHtml = await response.text();
 
-        // 2. Initializing browser DOM parser to isolate application pillars
+        // Initializing browser DOM parser to isolate application pillars
         const parser = new DOMParser();
         const doc = parser.parseFromString(rawHtml, 'text/html');
 
-        // 3. Extracting and injecting scoped CSS assets into document head
+        // Extracting and injecting scoped CSS assets into document head
         const styles = doc.querySelectorAll('style');
         styles.forEach(st => document.head.appendChild(st.cloneNode(true)));
 
-        // 4. Extracting the core UI wrapper and mounting it to workspace root
+        // Extracting the core UI wrapper and mounting it to workspace root
         const bodyContent = doc.querySelector('.ts-master-wrapper');
         if (bodyContent) {
             document.getElementById('ts-workspace-root').appendChild(bodyContent.cloneNode(true));
         }
 
-        // 5. Isolating javascript logic, safely sanitizing window scopes, and executing script context
+        // Isolating javascript logic, safely sanitizing window scopes, and executing script context
         const inlineScript = doc.querySelector('script');
         if (inlineScript) {
             const cleanJS = inlineScript.textContent.replace(/window\.parent\.document/g, 'window.document');
