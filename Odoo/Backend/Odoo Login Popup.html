@@ -1,0 +1,71 @@
+<!-- First, place this code of mine inside the body section of your website. It will also work fine if you place it at the very bottom right where the body section begins after the head section closes. -->
+<div id="ts-g-popup" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(10, 14, 39, 0.7); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); justify-content:center; align-items:center; z-index:999999; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif; padding:20px; box-sizing:border-box;">
+    <div style="background:#111827; border:1px solid rgba(0, 217, 255, 0.2); border-radius:16px; max-width:550px; width:100%; padding:32px; box-shadow:0 25px 50px -12px rgba(0, 0, 0, 0.5); position:relative; text-align:center; box-sizing:border-box;">
+        <button id="ts-g-close" style="position:absolute; top:16px; right:20px; background:none; border:none; font-size:24px; font-weight:bold; color:#9ca3af; cursor:pointer; padding:0; line-height:1; transition:color 0.2s;">&times;</button>
+        
+        <h2 style="margin-top:0; margin-bottom:12px; color:#ffffff; font-size:24px; font-weight:700; letter-spacing:-0.5px;">Access Restricted</h2>
+        
+        <p style="color:#9ca3af; font-size:15px; line-height:1.5; margin-bottom:24px;">You are not logged into the TechStora Ecosystem yet. Please tap on the "Continue with Google" button below to log in.</p>
+        
+        <div style="background:rgba(255, 255, 255, 0.03); border:1px solid rgba(255, 255, 255, 0.08); border-radius:12px; padding:20px; margin-bottom:28px; text-align:left; box-sizing:border-box;">
+            <h4 style="margin-top:0; margin-bottom:8px; color:#00d9ff; font-size:14px; font-weight:600; text-transform:uppercase; letter-spacing:0.5px;">Why should you join?</h4>
+            <p style="color:#d1d5db; font-size:13px; line-height:1.6; margin:0;">By signing up and logging into the TechStora Ecosystem, you will instantly unlock full access to all our premium Business Tools and YouTube Utility Tools completely free. Additionally, you will receive high-priority corporate updates, critical business analysis, and exclusive industry news delivered straight to your inbox with zero friction.</p>
+        </div>
+      <!-- Now, add your original login URL in place of the 'XXX' below -->
+        <a href="xxxxxxxxxxxxxxxxx" style="display:inline-flex; align-items:center; justify-content:center; background:#ffffff; border:1px solid #dadce0; border-radius:6px; color:#3c4043; font-size:15px; font-weight:500; height:46px; width:100%; letter-spacing:0.25px; text-decoration:none; transition:background .218s; box-sizing:border-box; margin-bottom:24px;">
+            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="18px" height="18px" viewBox="0 0 48 48" style="margin-right:10px; display:block;">
+                <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"></path>
+                <path fill="#4285F4" d="M46.5 24c0-1.55-.15-3.24-.47-4.69H24v9.03h12.75c-.53 2.85-2.1 5.27-4.5 6.87l7.04 5.46C43.43 36.46 46.5 30.83 46.5 24z"></path>
+                <path fill="#FBBC05" d="M10.54 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.98-6.19z"></path>
+                <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.04-5.46c-1.99 1.33-4.51 2.12-8.85 2.12-6.26 0-11.57-4.22-13.46-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"></path>
+            </svg>
+            Continue with Google
+        </a>
+      <!-- Now, replace the 'XX' in both places here with your original domain -->
+
+        <div style="font-size:12px; color:#6b7280;">
+            <a href="https://xxxxx/privacy-policy" target="_blank" style="color:#9ca3af; text-decoration:underline; transition:color 0.2s;">Privacy Policy</a>
+            <span style="margin:0 8px; color:#4b5563;">|</span>
+            <a href="https://xxxxxxxxxx/terms-and-conditions" target="_blank" style="color:#9ca3af; text-decoration:underline; transition:color 0.2s;">Terms and Conditions</a>
+        </div>
+    </div>
+</div>
+
+<script>
+(function() {
+    setTimeout(function() {
+        let uidExists = false;
+        try {
+            const scripts = document.getElementsByTagName('script');
+            for (let script of scripts) {
+                const text = script.innerHTML || script.textContent;
+                if (text && text.includes('__session_info__') && text.includes('"uid"')) {
+                    const match = text.match(/"uid"\s*:\s*(\d+)/);
+                    if (match && match[1]) { uidExists = true; break; }
+                }
+            }
+        } catch (e) {}
+
+        if (uidExists || document.cookie.includes("ts_pop_mute=1")) return;
+
+        const popup = document.getElementById('ts-g-popup');
+        if(popup) popup.style.display = 'flex';
+
+        const closeBtn = document.getElementById('ts-g-close');
+        if(closeBtn) {
+            closeBtn.addEventListener('click', function() {
+                let count = parseInt(localStorage.getItem('ts_close_count') || '0') + 1;
+                if (count >= 3) {
+                    let d = new Date();
+                    d.setTime(d.getTime() + (6 * 60 * 60 * 1000));
+                    document.cookie = "ts_pop_mute=1; expires=" + d.toUTCString() + "; path=/";
+                    localStorage.removeItem('ts_close_count');
+                } else {
+                    localStorage.setItem('ts_close_count', count);
+                }
+                popup.style.display = 'none';
+            });
+        }
+    }, 5000);
+})();
+</script>
