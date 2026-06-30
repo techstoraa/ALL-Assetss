@@ -1,119 +1,253 @@
-<!-- MODULE 1: CORE STYLESHEET -->
 <style>
+  /* Core Theme Variables */
+  :root {
+      --ts-bg-main: #0a0e27;
+      --ts-card-bg: rgba(255, 255, 255, 0.03);
+      --ts-card-border: rgba(255, 255, 255, 0.08);
+      --ts-card-hover-border: rgba(0, 217, 255, 0.4);
+      --ts-accent-cyan: #00d9ff;
+      --ts-accent-purple: #8b5cf6;
+      --ts-text-primary: #f5f5f5;
+      --ts-text-muted: #a1a1aa;
+      --ts-error-bg: rgba(220, 38, 38, 0.1);
+      --ts-error-border: rgba(220, 38, 38, 0.3);
+      --ts-error-text: #f87171;
+  }
+
   .ts-master-wrapper {
-    background: transparent;
-    width: 100%;
-    box-sizing: border-box;
-    font-family: 'Inter', system-ui, sans-serif;
+      width: 100vw;
+      position: relative;
+      left: 50%;
+      right: 50%;
+      margin-left: -50vw;
+      margin-right: -50vw;
+      background: var(--ts-bg-main);
+      color: var(--ts-text-primary);
+      font-family: 'Segoe UI', 'Inter', system-ui, sans-serif;
+      box-sizing: border-box;
+      line-height: 1.6;
+      padding-bottom: 4rem;
   }
+
+  .ts-master-wrapper * { box-sizing: border-box; }
+
+  .ts-container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem;
+  }
+
+  /* Hero Section */
+  .ts-hero {
+      text-align: center;
+      padding: 3rem 1.5rem 2rem 1.5rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      background: radial-gradient(circle at top, rgba(139, 92, 246, 0.1) 0%, transparent 60%);
+  }
+  .ts-hero h1 {
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      margin: 0 0 0.8rem 0;
+      color: #fff;
+      font-weight: 700;
+  }
+  .ts-hero p {
+      font-size: 1.05rem;
+      color: var(--ts-text-muted);
+      max-width: 680px;
+      margin: 0 auto;
+  }
+
+  /* Input Controller */
+  .ts-input-module {
+      background: var(--ts-card-bg);
+      border: 1px solid var(--ts-card-border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  }
+
   .ts-input-row {
-    display: flex;
-    gap: 8px;
-    align-items: stretch;
-    flex-wrap: wrap;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
   }
+  @media (min-width: 768px) {
+      .ts-input-row { flex-direction: row; align-items: stretch; }
+  }
+
   .ts-input {
-    flex: 1;
-    padding: 11px 14px;
-    border: 1.5px solid rgba(0,0,0,0.15);
-    border-radius: 8px;
-    font-size: 14px;
-    background: rgba(255,255,255,0.08);
-    color: inherit;
-    outline: none;
-    transition: border-color 0.2s;
-    min-width: 0;
+      flex: 1;
+      padding: 16px 20px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 8px;
+      font-size: 15px;
+      background: rgba(0, 0, 0, 0.4);
+      color: var(--ts-text-primary);
+      outline: none;
+      transition: all 0.3s ease;
+      width: 100%;
   }
-  .ts-input:focus { border-color: rgba(0,0,0,0.4); }
-  .ts-input::placeholder { opacity: 0.45; }
-  .ts-days-select {
-    padding: 11px 12px;
-    border: 1.5px solid rgba(0,0,0,0.15);
-    border-radius: 8px;
-    font-size: 14px;
-    background: rgba(255,255,255,0.08);
-    color: inherit;
-    outline: none;
-    cursor: pointer;
-    min-width: 110px;
-    appearance: none;
-    -webkit-appearance: none;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='rgba(0,0,0,0.35)'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 10px center;
-    padding-right: 28px;
-  }
+  .ts-input:focus { border-color: var(--ts-accent-cyan); box-shadow: 0 0 0 3px rgba(0, 217, 255, 0.15); }
+
   .ts-btn {
-    padding: 11px 22px;
-    background: #111;
-    color: #fff;
-    border: none;
-    border-radius: 8px;
-    font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
-    white-space: nowrap;
-    transition: opacity 0.2s;
+      padding: 16px 32px;
+      background: linear-gradient(135deg, var(--ts-accent-cyan), var(--ts-accent-purple));
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.2s ease, opacity 0.2s ease;
+      white-space: nowrap;
   }
-  .ts-btn:disabled { opacity: 0.5; cursor: not-allowed; }
-  .ts-btn:hover:not(:disabled) { opacity: 0.82; }
-  .ts-output { margin-top: 18px; }
+  .ts-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+  .ts-btn:hover:not(:disabled) { transform: translateY(-2px); opacity: 0.9; }
+
+  /* Dynamic Outputs */
+  .ts-output { margin-top: 1.5rem; }
+
+  /* Loading State */
+  .ts-loading-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      padding: 2rem;
+      font-size: 15px;
+      color: var(--ts-accent-cyan);
+      background: rgba(0,0,0,0.2);
+      border-radius: 12px;
+      border: 1px dashed rgba(0,217,255,0.3);
+  }
   .ts-spinner {
-    display: inline-block;
-    width: 20px; height: 20px;
-    border: 2.5px solid rgba(0,0,0,0.12);
-    border-top-color: #111;
-    border-radius: 50%;
-    animation: ts-spin 0.7s linear infinite;
-    vertical-align: middle;
-    margin-right: 8px;
+      width: 24px; height: 24px;
+      border: 3px solid rgba(0,217,255,0.2);
+      border-top-color: var(--ts-accent-cyan);
+      border-radius: 50%;
+      animation: ts-spin 0.8s linear infinite;
   }
   @keyframes ts-spin { to { transform: rotate(360deg); } }
-  .ts-loading-row { display: flex; align-items: center; font-size: 13px; opacity: 0.6; }
-  .ts-toolbar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; gap: 10px; flex-wrap: wrap; }
-  .ts-count-label { font-size: 12px; opacity: 0.5; font-weight: 600; }
-  .ts-channel-label { font-size: 13px; font-weight: 600; }
-  .ts-table-wrap { overflow-x: auto; border-radius: 8px; border: 1px solid rgba(0,0,0,0.09); }
-  table.ts-table { width: 100%; border-collapse: collapse; font-size: 13px; }
-  table.ts-table th { padding: 9px 12px; background: rgba(0,0,0,0.04); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; opacity: 0.5; text-align: left; white-space: nowrap; border-bottom: 1px solid rgba(0,0,0,0.08); }
-  table.ts-table td { padding: 9px 12px; border-bottom: 1px solid rgba(0,0,0,0.05); vertical-align: top; }
-  table.ts-table tr:last-child td { border-bottom: none; }
-  table.ts-table tr:hover td { background: rgba(0,0,0,0.025); }
-  .ts-td-title { max-width: 280px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .ts-td-views { font-weight: 600; text-align: right; white-space: nowrap; }
-  .ts-td-date { white-space: nowrap; opacity: 0.6; font-size: 12px; }
-  .ts-alert { padding: 12px 16px; border-radius: 8px; font-size: 13px; font-weight: 500; }
-  .ts-alert-err { background: rgba(220,38,38,0.08); color: #c00; border: 1px solid rgba(220,38,38,0.2); }
-  .ts-alert-warn { background: rgba(234,179,8,0.1); color: #7a5f00; border: 1px solid rgba(234,179,8,0.25); }
-  .ts-alert-info { background: rgba(0,0,0,0.04); border: 1px solid rgba(0,0,0,0.08); font-size: 12px; margin-top: 8px; padding: 8px 12px; }
-  .ts-empty-state { padding: 28px; text-align: center; opacity: 0.45; font-size: 13px; }
-  .ts-login-link { display: inline-block; margin-top: 10px; padding: 8px 20px; background: #111; color: #fff; border-radius: 7px; font-size: 13px; font-weight: 600; text-decoration: none; }
-  .ts-diag-pre { font-family: 'Fira Mono', 'Courier New', monospace; font-size: 12px; white-space: pre-wrap; word-break: break-all; color: #c00; margin: 0; max-height: 340px; overflow-y: auto; }
+
+  /* Alert States */
+  .ts-alert { padding: 16px 20px; border-radius: 8px; font-size: 14px; font-weight: 500; display: block; margin-bottom: 1rem; }
+  .ts-alert-err { background: var(--ts-error-bg); color: var(--ts-error-text); border: 1px solid var(--ts-error-border); }
+  .ts-alert-warn { background: rgba(234,179,8,0.1); color: #facc15; border: 1px solid rgba(234,179,8,0.3); }
+
+  /* Sequential Data Cards */
+  .ts-workspace { display: flex; flex-direction: column; gap: 1.5rem; }
+
+  .ts-card {
+      background: var(--ts-card-bg);
+      border: 1px solid var(--ts-card-border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      width: 100%;
+  }
+
+  .ts-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+  }
+  .ts-card-title {
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--ts-accent-purple);
+      letter-spacing: 1.5px;
+      margin: 0;
+  }
+
+  /* Utility Copy Button */
+  .ts-btn-copy {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: var(--ts-accent-cyan);
+      border-radius: 6px;
+      padding: 6px 12px;
+      font-size: 11px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-transform: uppercase;
+  }
+  .ts-btn-copy:hover { background: var(--ts-accent-cyan); color: #0a0e27; }
+
+  /* Card Contents */
+  .ts-embed-container {
+      width: 100%; aspect-ratio: 16 / 9;
+      border-radius: 8px; overflow: hidden;
+      background: #000; border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  .ts-embed-container iframe { width: 100%; height: 100%; border: none; }
+
+  .ts-meta-title { font-size: 1.3rem; font-weight: 700; line-height: 1.4; color: #fff; margin-bottom: 0.4rem; }
+  .ts-meta-channel { font-size: 1rem; font-weight: 600; color: var(--ts-accent-cyan); }
+
+  .ts-desc-box {
+      font-size: 0.95rem; line-height: 1.6; color: var(--ts-text-muted);
+      white-space: pre-wrap; max-height: 250px; overflow-y: auto;
+      background: rgba(0,0,0,0.2); padding: 1rem; border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.05);
+  }
+  .ts-desc-box::-webkit-scrollbar { width: 6px; }
+  .ts-desc-box::-webkit-scrollbar-track { background: rgba(0,0,0,0.2); border-radius: 4px; }
+  .ts-desc-box::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 4px; }
+
+  .ts-stats-grid {
+      display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem;
+  }
+  @media (min-width: 640px) { .ts-stats-grid { grid-template-columns: repeat(3, 1fr); } }
+
+  .ts-stat-block {
+      background: rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 8px; padding: 1rem; text-align: center;
+  }
+  .ts-stat-val { font-size: 1.4rem; font-weight: 800; color: #fff; display: block; margin-bottom: 0.2rem; }
+  .ts-stat-lbl { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; color: var(--ts-text-muted); letter-spacing: 1px; }
+
+  .ts-tag-cluster { display: flex; flex-wrap: wrap; gap: 8px; }
+  .ts-tag-node {
+      font-size: 0.85rem; font-weight: 600; padding: 6px 14px;
+      background: rgba(139, 92, 246, 0.15); border: 1px solid rgba(139, 92, 246, 0.3);
+      color: #c084fc; border-radius: 20px; word-break: break-word;
+  }
+  .ts-login-link { display: inline-block; margin-top: 10px; padding: 8px 20px; background: var(--ts-accent-cyan); color: #0a0e27; border-radius: 7px; font-size: 13px; font-weight: 700; text-decoration: none; }
+  .ts-diag-pre { font-family: 'Fira Mono', monospace; font-size: 12px; white-space: pre-wrap; word-break: break-all; color: var(--ts-error-text); margin: 0; max-height: 340px; overflow-y: auto; }
 </style>
 
-<!-- MODULE 2: MASTER WRAPPER CONTAINER -->
 <div class="ts-master-wrapper">
-
-  <!-- MODULE 3: USER INPUT CONTROLS -->
-  <div class="ts-input-row">
-    <input type="url" id="cai-url" class="ts-input" placeholder="https://www.youtube.com/@channelhandle" />
-    <select id="cai-days" class="ts-days-select">
-      <option value="7">Last 7 days</option>
-      <option value="14">Last 14 days</option>
-      <option value="30" selected>Last 30 days</option>
-      <option value="60">Last 60 days</option>
-      <option value="90">Last 90 days</option>
-    </select>
-    <button id="cai-btn" class="ts-btn" onclick="caiRun()">Index</button>
+  <div class="ts-hero">
+      <h1>Video <span style="color: #00d9ff;">Analysis</span></h1>
+      <p>Extract core metadata, tags, and metrics securely mapped directly from any YouTube node.</p>
   </div>
 
-  <!-- MODULE 4: OUTPUT DISPLAY CANVAS -->
-  <div id="cai-out" class="ts-output"></div>
+  <div class="ts-container">
+    <div class="ts-input-module">
+      <div class="ts-input-row">
+        <input type="url" id="vmt-url" class="ts-input" placeholder="https://www.youtube.com/watch?v=..." spellcheck="false" autocomplete="off" />
+        <button id="vmt-btn" class="ts-btn" onclick="vmtRun()">Extract Node</button>
+      </div>
+    </div>
 
+    <div id="vmt-out" class="ts-output"></div>
+  </div>
 </div>
 
-<!-- MODULE 5: JAVASCRIPT LOGIC AND RUNTIME -->
 <script>
+/* Global Copy Functions for Inline Execution */
+window.tsCopyTextData = function(btn, targetId) {
+    const txt = document.getElementById(targetId).innerText;
+    navigator.clipboard.writeText(txt).then(() => {
+        const og = btn.innerText;
+        btn.innerText = 'Copied!';
+        setTimeout(() => btn.innerText = og, 1500);
+    });
+};
+
 (function() {
   const DEBUG_MODE = false;
   const API_ENDPOINT = 'https://www.techstora.com/api/v1/youtube/proxy';
@@ -141,33 +275,34 @@
     return x.toLocaleString();
   }
 
-  function fmtDate(d) {
-    if (!d) return '—';
-    try { return new Date(d).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' }); }
-    catch(e) { return d; }
+  function extractYouTubeId(url) {
+    const match = url.match(/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/\s]{11})/i);
+    return (match && match[1]) ? match[1] : null;
   }
 
-  function setOut(html) { document.getElementById('cai-out').innerHTML = html; }
+  function setOut(html) {
+    document.getElementById('vmt-out').innerHTML = html;
+  }
 
   function setBtn(loading) {
-    const b = document.getElementById('cai-btn');
+    const b = document.getElementById('vmt-btn');
     b.disabled = loading;
-    b.textContent = loading ? 'Indexing…' : 'Index';
+    b.textContent = loading ? 'Extracting...' : 'Extract Node';
   }
 
-  window.caiRun = async function() {
-    const url = document.getElementById('cai-url').value.trim();
-    const days = parseInt(document.getElementById('cai-days').value, 10);
+  window.vmtRun = async function() {
+    const url = document.getElementById('vmt-url').value.trim();
+    const vidId = extractYouTubeId(url);
 
-    if (!url.includes('youtube.com') && !url.includes('youtu.be')) {
-      setOut(`<div class="ts-alert ts-alert-err">Enter a valid YouTube channel URL.</div>`);
+    if (!vidId) {
+      setOut(`<div class="ts-alert ts-alert-err"><strong>Validation Error:</strong> Enter a valid YouTube video URL format.</div>`);
       return;
     }
 
     setBtn(true);
-    setOut(`<div class="ts-loading-row"><span class="ts-spinner"></span>Scanning channel archive…</div>`);
+    setOut(`<div class="ts-loading-row"><div class="ts-spinner"></div><span>Querying API Pipeline...</span></div>`);
 
-    const payload = { tool_type: 'channel_archive_indexer', target_url: url, days, uid: getUID() };
+    const payload = { tool_type: 'video_meta_tags', target_url: url, uid: getUID() };
 
     try {
       const res = await fetch(API_ENDPOINT, {
@@ -183,12 +318,12 @@
           let msg = 'Usage limit reached.';
           try { msg = JSON.parse(raw).error || msg; } catch(e) {}
           setBtn(false);
-          setOut(`<div class="ts-alert ts-alert-warn">🛑 ${msg}</div><a class="ts-login-link" href="/web/login">Log in to continue</a>`);
+          setOut(`<div class="ts-alert ts-alert-warn">🛑 ${msg}</div><a class="ts-login-link" href="/web/login">Log in to extend operations</a>`);
           return;
         }
         if (res.status === 401) {
           setBtn(false);
-          setOut(`<div class="ts-alert ts-alert-warn">Please log in to use this tool.</div><a class="ts-login-link" href="/web/login">Log In</a>`);
+          setOut(`<div class="ts-alert ts-alert-warn">Authorization required to access pipeline.</div><a class="ts-login-link" href="/web/login">Log In</a>`);
           return;
         }
         throw new Error(`HTTP_${res.status} | ${raw.substring(0, 800)}`);
@@ -198,64 +333,94 @@
       try { data = JSON.parse(raw); } catch(e) { throw new Error(`JSON_PARSE_FAILED | ${raw.substring(0, 800)}`); }
 
       const json = data.youtube_raw_json;
-      if (!json) {
+      if (!json || !json.items || json.items.length === 0) {
         setBtn(false);
-        setOut(`<div class="ts-alert ts-alert-err">Channel not found. Check the URL and try again.</div>`);
+        setOut(`<div class="ts-alert ts-alert-err"><strong>Target Offline:</strong> Video not found or restrictions applied by creator.</div>`);
         return;
       }
 
-      const items = json.items || [];
+      const item = json.items[0];
+      const sn = item.snippet || {};
+      const st = item.statistics || {};
+      const tags = sn.tags || [];
 
-      if (items.length === 0) {
-        setBtn(false);
-        setOut(`<div class="ts-empty-state">No videos uploaded in the selected time range.</div>`);
-        return;
-      }
+      // Build Tags HTML
+      const tagsHtml = tags.length
+        ? `<div class="ts-tag-cluster">${tags.map(t => `<span class="ts-tag-node">${t}</span>`).join('')}</div>`
+        : `<span style="font-size: 0.9rem; color: rgba(255,255,255,0.4); font-style: italic;">[NO_TAGS_DETECTED]</span>`;
 
-      const rows = items.map((it, i) => `
-        <tr>
-          <td style="opacity:0.4;font-size:12px;text-align:right;">${i + 1}</td>
-          <td class="ts-td-title" title="${(it.title || '').replace(/"/g, '&quot;')}">
-            <a href="https://www.youtube.com/watch?v=${it.videoId}" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;">${it.title || 'Untitled'}</a>
-          </td>
-          <td class="ts-td-date">${fmtDate(it.publishedAt)}</td>
-          <td class="ts-td-views">${fmtNum(it.viewCount)}</td>
-        </tr>`).join('');
-
-      const capNote = json.scan_capped
-        ? `<div class="ts-alert ts-alert-info">Scan limit reached — there may be more videos in this range not shown.</div>` : '';
-
+      // Main UI Injection
       setBtn(false);
       setOut(`
-        <div class="ts-toolbar">
-          <span class="ts-channel-label">${json.channel_title || ''}</span>
-          <span class="ts-count-label">${items.length} videos in range</span>
+        <div class="ts-workspace">
+          
+          <div class="ts-card">
+              <div class="ts-card-header">
+                  <div class="ts-card-title">Node Verification Trap</div>
+              </div>
+              <div class="ts-embed-container">
+                  <iframe src="https://www.youtube.com/embed/${vidId}?rel=0" allowfullscreen></iframe>
+              </div>
+          </div>
+
+          <div class="ts-card">
+              <div class="ts-card-header">
+                  <div class="ts-card-title">Target Identity Context</div>
+                  <button class="ts-btn-copy" onclick="tsCopyTextData(this, 'ts-val-title')">Copy Title</button>
+              </div>
+              <div id="ts-val-title" class="ts-meta-title">${sn.title || '—'}</div>
+              <div class="ts-meta-channel">${sn.channelTitle || '—'}</div>
+          </div>
+
+          <div class="ts-card">
+              <div class="ts-card-header">
+                  <div class="ts-card-title">Content Matrix</div>
+                  <button class="ts-btn-copy" onclick="tsCopyTextData(this, 'ts-val-desc')">Copy Desc</button>
+              </div>
+              <div id="ts-val-desc" class="ts-desc-box">${sn.description || 'No descriptive data mapped.'}</div>
+          </div>
+
+          <div class="ts-card">
+              <div class="ts-card-header">
+                  <div class="ts-card-title">Performance Telemetry</div>
+              </div>
+              <div class="ts-stats-grid">
+                  <div class="ts-stat-block">
+                      <span class="ts-stat-val">${fmtNum(st.viewCount)}</span>
+                      <span class="ts-stat-lbl">Views</span>
+                  </div>
+                  <div class="ts-stat-block">
+                      <span class="ts-stat-val">${fmtNum(st.likeCount)}</span>
+                      <span class="ts-stat-lbl">Likes</span>
+                  </div>
+                  <div class="ts-stat-block">
+                      <span class="ts-stat-val">${fmtNum(st.commentCount)}</span>
+                      <span class="ts-stat-lbl">Comments</span>
+                  </div>
+              </div>
+          </div>
+
+          <div class="ts-card">
+              <div class="ts-card-header">
+                  <div class="ts-card-title">Optimization Vectors</div>
+                  <button class="ts-btn-copy" onclick="tsCopyTextData(this, 'ts-val-tags-raw')">Copy All Tags</button>
+              </div>
+              <div id="ts-val-tags-raw" style="display:none;">${tags.join(', ')}</div>
+              ${tagsHtml}
+          </div>
+
         </div>
-        <div class="ts-table-wrap">
-          <table class="ts-table">
-            <thead><tr>
-              <th style="width:32px;">#</th>
-              <th>Title</th>
-              <th>Date</th>
-              <th style="text-align:right;">Views</th>
-            </tr></thead>
-            <tbody>${rows}</tbody>
-          </table>
-        </div>
-        ${capNote}
       `);
 
     } catch(err) {
       setBtn(false);
       if (DEBUG_MODE) {
         const dump = JSON.stringify(err, Object.getOwnPropertyNames(err), 2);
-        setOut(`<div class="ts-alert ts-alert-err"><strong>RAW ERROR DUMP:</strong><hr style="border-color:rgba(200,0,0,0.2);margin:8px 0;"><pre class="ts-diag-pre">${dump}</pre></div>`);
+        setOut(`<div class="ts-alert ts-alert-err"><strong>RAW FAULT:</strong><hr style="border-color:rgba(200,0,0,0.2);margin:8px 0;"><pre class="ts-diag-pre">${dump}</pre></div>`);
       } else {
-        setOut(`<div class="ts-alert ts-alert-err">Something went wrong. Please try again later.</div>`);
+        setOut(`<div class="ts-alert ts-alert-err">Pipeline compromised. Check server stability and try again.</div>`);
       }
     }
   };
 })();
 </script>
-
-<!-- MODULE 6: END OF COMPONENT -->
