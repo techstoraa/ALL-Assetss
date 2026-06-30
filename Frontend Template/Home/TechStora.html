@@ -1,0 +1,330 @@
+<style>
+    /* Scoped CSS with Full-Bleed Breakout Hack for Odoo */
+    .ts-master-wrapper {
+        font-family: 'Segoe UI', system-ui, sans-serif;
+        background: #0a0e27;
+        color: #f5f5f5;
+        line-height: 1.6;
+        padding: 0;
+        
+        /* The Breakout Magic: Forces the div to break Odoo's container constraints */
+        width: 100vw;
+        position: relative;
+        left: 50%;
+        right: 50%;
+        margin-left: -50vw;
+        margin-right: -50vw;
+        overflow-x: hidden;
+    }
+    .ts-master-wrapper * {
+        box-sizing: border-box;
+    }
+    .ts-master-wrapper a {
+        text-decoration: none;
+        color: inherit;
+    }
+    /* Content remains centered while background goes edge-to-edge */
+    .ts-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 4rem 2rem;
+    }
+    .ts-section-title {
+        font-size: 2.2rem;
+        font-weight: 700;
+        text-align: center;
+        margin-bottom: 2.5rem;
+        background: linear-gradient(135deg, #00d9ff, #8b5cf6);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+    .ts-grid-2 {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+    }
+    .ts-grid-3 {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 1.5rem;
+    }
+    .ts-grid-4 {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 1.5rem;
+    }
+    .ts-card {
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 12px;
+        padding: 2rem;
+        transition: transform 0.3s ease, border-color 0.3s ease;
+    }
+    .ts-card:hover {
+        transform: translateY(-5px);
+        border-color: rgba(0, 217, 255, 0.4);
+        background: rgba(255, 255, 255, 0.06);
+    }
+    
+    /* 1. Hero Section */
+    .ts-hero {
+        text-align: center;
+        padding: 6rem 2rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    .ts-hero h1 {
+        font-size: clamp(2.5rem, 5vw, 4rem);
+        margin-bottom: 1rem;
+        color: #fff;
+    }
+    .ts-hero p {
+        font-size: 1.2rem;
+        color: #a1a1aa;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    /* Technology Section Details */
+    .ts-tech-title {
+        font-size: 1.5rem;
+        color: #00d9ff;
+        margin-bottom: 1rem;
+    }
+    
+    /* Websites Link Cards */
+    .ts-site-card {
+        display: block;
+        cursor: pointer;
+    }
+    .ts-site-name {
+        font-size: 1.3rem;
+        font-weight: bold;
+        color: #fff;
+        margin-bottom: 0.5rem;
+    }
+    .ts-site-desc {
+        font-size: 0.95rem;
+        color: #a1a1aa;
+    }
+
+    /* About Section */
+    .ts-about {
+        background: rgba(255, 255, 255, 0.02);
+        border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    .ts-about-content {
+        max-width: 800px;
+        margin: 0 auto;
+        text-align: justify;
+        color: #d1d5db;
+        font-size: 1.1rem;
+    }
+
+    /* =========================================================================
+       NEW ARCHITECTURAL CLASSES (Matching original design token system)
+       ========================================================================= */
+    .ts-icon-wrapper {
+        margin-bottom: 1.2rem;
+        display: inline-block;
+    }
+    .ts-service-stage {
+        font-size: 0.8rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        color: #8b5cf6;
+        letter-spacing: 1px;
+        margin-bottom: 0.5rem;
+    }
+    
+    /* Roadmap styles */
+    .ts-roadmap-flow {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+        position: relative;
+    }
+    .ts-roadmap-step {
+        display: flex;
+        gap: 2rem;
+        background: rgba(255, 255, 255, 0.02);
+        border-left: 3px solid #00d9ff;
+        padding: 1.5rem;
+        border-radius: 0 12px 12px 0;
+    }
+    .ts-roadmap-num {
+        font-size: 1.8rem;
+        font-weight: 800;
+        color: rgba(0, 217, 255, 0.3);
+        line-height: 1;
+    }
+
+    /* Diagram Styles */
+    .ts-diagram-container {
+        background: rgba(255, 255, 255, 0.01);
+        border: 1px dashed rgba(255, 255, 255, 0.1);
+        border-radius: 16px;
+        padding: 2.5rem;
+        margin-top: 2rem;
+    }
+    .ts-diagram-flow {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        gap: 1.5rem;
+    }
+    .ts-diagram-node {
+        background: rgba(10, 14, 39, 0.8);
+        border: 1px solid rgba(0, 217, 255, 0.2);
+        border-radius: 10px;
+        padding: 1.2rem;
+        text-align: center;
+        min-width: 200px;
+        flex: 1;
+    }
+    .ts-diagram-arrow {
+        color: #8b5cf6;
+        font-weight: bold;
+        font-size: 1.5rem;
+    }
+    .ts-stat-badge {
+        display: inline-block;
+        padding: 0.3rem 0.8rem;
+        background: rgba(139, 92, 246, 0.15);
+        border: 1px solid rgba(139, 92, 246, 0.3);
+        color: #c084fc;
+        border-radius: 20px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        margin-top: 0.5rem;
+    }
+</style>
+
+<div class="ts-master-wrapper">
+
+    <section class="ts-hero">
+        <h1>TechStora <span style="color: #00d9ff;">Ecosystem</span></h1>
+        <p>We provide premium video editing, automated website articles, complete YouTube channel management, and advanced digital infrastructure
+        Scroll down to explore the details.</p>
+    </section>
+
+    <section class="ts-container">
+        <h2 class="ts-section-title">Our Content & Automation Architecture</h2>
+        <div class="ts-grid-2">
+            <div class="ts-card">
+                <h3 class="ts-tech-title">QueryCore: The Hunter</h3>
+                <p style="color: #a1a1aa;">An automated data ingestion engine that continuously scans the internet to extract, index, and consolidate the latest trending topics, articles, and news directly into a secure, serverless Cloudflare D1 database edge network.</p>
+            </div>
+            <div class="ts-card">
+                <h3 class="ts-tech-title">QueryCore Plus</h3>
+                <p style="color: #a1a1aa;">An automated system that filters internet data, locks onto the target website, refines the content using advanced AI models, passes it through a final quality control check, and instantly publishes it to the platform.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="ts-container">
+        <h2 class="ts-section-title">Our Web Properties (Managed by QueryCore)</h2>
+        <div class="ts-grid-3">
+            <a href="https://www.techstora.com" target="_blank" class="ts-card ts-site-card">
+                <div class="ts-site-name">TechStora</div>
+                <div class="ts-site-desc">Our main website where articles explain AI and AGI in a very easy and simple way, fully managed by our QueryCore system.</div>
+            </a>
+            <a href="https://pulse.techstora.com" target="_blank" class="ts-card ts-site-card">
+                <div class="ts-site-name">TechStora Pulse</div>
+                <div class="ts-site-desc">A high-speed news website that posts around 80 updates every single day about new smartphones, gadgets, and tech trends, keeping you updated instantly with everything happening in the technology world.</div>
+            </a>
+            <a href="https://wiki.techstora.com" target="_blank" class="ts-card ts-site-card">
+                <div class="ts-site-name">TechStora Wiki</div>
+                <div class="ts-site-desc">A deep learning website that posts very simple articles about how technologies work, how they started, and how they compare with each other, making deep logic easy enough for a 6-year-old child to understand.</div>
+            </a>
+            <a href="https://fx.techstora.com" target="_blank" class="ts-card ts-site-card">
+                <div class="ts-site-name">TechStora Fx</div>
+                <div class="ts-site-desc">A specialized website that explains video editing and post-production purely through simple written text and theoretical breakdowns, making complex visual workflows easy to learn without needing video tutorials.</div>
+            </a>
+            <a href="https://growth.techstora.com" target="_blank" class="ts-card ts-site-card">
+                <div class="ts-site-name">TechStora Growth</div>
+                <div class="ts-site-desc">A website that tells you exactly how to grow on platforms like Facebook, X, Instagram, and YouTube. Our system scans the internet for successful strategies from interviews with top creators and influencers, publishing their proven secrets in simple guides.</div>
+            </a>
+            <a href="https://logic.techstora.com" target="_blank" class="ts-card ts-site-card">
+                <div class="ts-site-name">TechStora Logic</div>
+                <div class="ts-site-desc">A website focused on computer programming and data structures. It posts simple guides on how to solve complex coding puzzles, advanced algorithmic problems, and competitive programming challenges step-by-step.</div>
+            </a>
+            <a href="https://dev.techstora.com" target="_blank" class="ts-card ts-site-card">
+                <div class="ts-site-name">TechStora Dev</div>
+                <div class="ts-site-desc">A website that posts simple updates about software development, coding frameworks, and how different web platforms and applications are built and managed behind the scenes.</div>
+            </a>
+            <a href="https://news.techstora.com" target="_blank" class="ts-card ts-site-card">
+                <div class="ts-site-name">TechStora News</div>
+                <div class="ts-site-desc">This website is currently closed due to technical issues and is undergoing backend reconstruction.</div>
+            </a>
+            <a href="https://secure.techstora.com" target="_blank" class="ts-card ts-site-card">
+                <div class="ts-site-name">TechStora Secure</div>
+                <div class="ts-site-desc">A website focused on online safety and cyber threats. It posts simple articles about how to stay secure online, how safe different web systems are, and why new computer hacks or cyber dangers are risky for everyday people.</div>
+            </a>
+            <a href="https://ops.techstora.com" target="_blank" class="ts-card ts-site-card">
+                <div class="ts-site-name">TechStora Ops</div>
+                <div class="ts-site-desc">A website that explains cloud computing and server management in a very simple way, showing how large websites run online, how databases store information, and how cloud infrastructure works behind the scenes.</div>
+            </a>
+        </div>
+    </section>
+    <section class="ts-container">
+        <h2 class="ts-section-title">How We Help With Our Services</h2>
+        <div class="ts-grid-4">
+            <div class="ts-card">
+                <div class="ts-icon-wrapper">
+                    <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#00d9ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"></polygon><rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect></svg>
+                </div>
+                <div class="ts-service-stage">Stage 01</div>
+                <div class="ts-site-name">Optimizing Content Performance & Retention</div>
+                <div class="ts-site-desc">First, we find out exactly what your viewers want to watch based on your topic. We study your top competitors. If you make documentary videos, we break down how top creators like Nitish Rajput and Magnates Media control their audio psychology and visual impact.
+                <br><br>
+                We analyze their secret: they do not use full 3D models all the time. Instead, they use 90% high-quality 3D images and only 10% heavy 3D models to keep things fast yet stunning. After finding these exact data points, we finally start optimizing your videos.</div>
+            </div>
+            <div class="ts-card">
+                <div class="ts-icon-wrapper">
+                    <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#00d9ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polygon points="10 8 16 12 10 16 10 8"></polygon></svg>
+                </div>
+                <div class="ts-service-stage">Stage 02</div>
+                <div class="ts-site-name">Automating Channel & Social Media Operations</div>
+                <div class="ts-site-desc">After designing your video based on competitor data in Stage 1, our automated system takes over. We take that exact same video and automatically post it across all major social networks like YouTube, Facebook, Instagram, and Twitter.
+                <br><br>
+                But that is not all. Our QueryCore engine, which is an expert at processing text data, extracts the core script and insights from your video. It then converts this data into high-value text posts to automatically publish on LinkedIn, your own website, Medium, and even the YouTube Community Tab as soon as the v3 API support rolls out.</div>
+            </div>
+            <div class="ts-card">
+                <div class="ts-icon-wrapper">
+                    <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#00d9ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+                </div>
+                <div class="ts-service-stage">Stage 03</div>
+                <div class="ts-site-name">Programmatic Web Scaling Through QueryCore</div>
+                <div class="ts-site-desc">Instead of manually searching for what is trending, our automated system does it for you. Our QueryCore engine operates as an aggressive data hunter that scans the internet 24/7. It tracks viral trends, global tech updates, and high-impact corporate data in real time.
+                <br><br>
+                It safely stores all this raw research in our backend databases. This gives us a massive, ready-to-use library of high-value topics and deep insights, allowing us to build your next viral content sprint completely driven by raw data and logic.</div>
+            </div>
+            <div class="ts-card">
+                <div class="ts-icon-wrapper">
+                    <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#00d9ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect><line x1="6" y1="6" x2="6.01" y2="6"></line><line x1="6" y1="18" x2="6.01" y2="18"></line></svg>
+                </div>
+                <div class="ts-service-stage">Stage 04</div>
+                <div class="ts-site-name">Building a Mega Business From Your Audience</div>
+                <div class="ts-site-desc">Most agencies only care about your face value, views, and simple brand deals. We do things differently. While Stages 1, 2, and 3 build your massive online presence, Stage 4 is where we launch your real digital empire.
+                <br><br>
+                We analyze your personal audience data to find out what products or services they desperately need. Then, we help you build and launch your own high-ticket personal business behind the scenes. This is not about getting sponsors; it is about converting your loyal community into a multi-million dollar asset that you own 100%.</div>
+            </div>
+        </div>
+    </section>
+<section class="ts-about" style="text-align: center;">
+    <div class="ts-container">
+        
+        <h2 class="ts-section-title" style="margin-bottom: 15px;">Service Application Form</h2>
+        
+        <div class="ts-about-content" style="max-width: 800px; margin: 0 auto;">
+            <p style="margin: 0 0 30px 0; line-height: 1.5; text-align: center;">
+                Fill out this form to contact us directly. Based on the information you provide here, we will analyze your data and connect with you to discuss your exact pricing, future strategy, visual branding, audience conversion, target subscribers, and view mechanics. Once the data aligns, we will lock the final deal.
+            </p>
+            
+            <div class="ts-odoo-form-wrapper" style="width: 100%; display: inline-block;">
+                
+                </div>
+        </div>
+    </div>
+</section>
