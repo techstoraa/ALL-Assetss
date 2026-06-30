@@ -1,7 +1,6 @@
-<!-- Tool: channel_archive_indexer | Input: channel_url + days -->
-<!-- DEBUG_MODE: false = clean user error | true = raw dump in browser -->
+<!-- MODULE 1: CORE STYLESHEET -->
 <style>
-  .ts-tool-wrap {
+  .ts-master-wrapper {
     background: transparent;
     width: 100%;
     box-sizing: border-box;
@@ -92,7 +91,10 @@
   .ts-diag-pre { font-family: 'Fira Mono', 'Courier New', monospace; font-size: 12px; white-space: pre-wrap; word-break: break-all; color: #c00; margin: 0; max-height: 340px; overflow-y: auto; }
 </style>
 
-<div class="ts-tool-wrap">
+<!-- MODULE 2: MASTER WRAPPER CONTAINER -->
+<div class="ts-master-wrapper">
+
+  <!-- MODULE 3: USER INPUT CONTROLS -->
   <div class="ts-input-row">
     <input type="url" id="cai-url" class="ts-input" placeholder="https://www.youtube.com/@channelhandle" />
     <select id="cai-days" class="ts-days-select">
@@ -104,13 +106,16 @@
     </select>
     <button id="cai-btn" class="ts-btn" onclick="caiRun()">Index</button>
   </div>
+
+  <!-- MODULE 4: OUTPUT DISPLAY CANVAS -->
   <div id="cai-out" class="ts-output"></div>
+
 </div>
 
+<!-- MODULE 5: JAVASCRIPT LOGIC AND RUNTIME -->
 <script>
 (function() {
   const DEBUG_MODE = false;
-
   const API_ENDPOINT = 'https://www.techstora.com/api/v1/youtube/proxy';
 
   function getUID() {
@@ -252,3 +257,5 @@
   };
 })();
 </script>
+
+<!-- MODULE 6: END OF COMPONENT -->
