@@ -105,6 +105,25 @@
 </div>
 
 <script type="text/javascript">
+/* ====================================================================
+ * DEBUG_MODE — MASTER SWITCH FOR ON-SCREEN DIAGNOSTIC LOGGING
+ * ====================================================================
+ * If DEBUG_MODE = false  -> The red "Terminal Diagnostic Log" box will
+ *                           NEVER appear on screen, no matter what error
+ *                           or event occurs. Users will only see a clean,
+ *                           friendly status message (e.g. "Sync failed,
+ *                           please try again."). This is the correct
+ *                           setting for PRODUCTION / LIVE users.
+ *
+ * If DEBUG_MODE = true   -> The red diagnostic box WILL appear and will
+ *                           print every technical log line (UID detection,
+ *                           API URL, HTTP status, raw response, errors).
+ *                           Use this ONLY temporarily while you are
+ *                           actively debugging an issue. Turn it back to
+ *                           false before going live again.
+ * ==================================================================== */
+const DEBUG_MODE = false;
+
 const WORKER_BASE = 'https://www.techstora.com';
 
 let cashfreeSDKPromise = null;
@@ -129,7 +148,11 @@ function loadCashfreeSDK() {
 }
 loadCashfreeSDK();
 
+// tsLog only writes to the visible on-screen box when DEBUG_MODE is true.
+// When DEBUG_MODE is false, it does nothing at all (no box, no leak of
+// internal details to end users).
 function tsLog(message) {
+    if (!DEBUG_MODE) return;
     const consoleBox = document.getElementById('ts-debug-console');
     const logArea = document.getElementById('ts-debug-log');
     consoleBox.style.display = 'block';
@@ -216,15 +239,22 @@ async function refreshWallet() {
         const result = JSON.parse(rawText);
 
         if (!result.success) {
-            document.getElementById('status-msg').innerText = 'Sync Error: ' + result.error;
+            // ✅ Fixed: user sees a clean generic message unless DEBUG_MODE is on.
+            document.getElementById('status-msg').innerText = DEBUG_MODE
+                ? 'Sync Error: ' + result.error
+                : 'Unable to load wallet. Please try again.';
             tsLog(`❌ Backend Logic Error: ${result.error}`);
             return;
         }
 
-        renderWallet(result.data, uid);
+        // ✅ Fixed: backend returns fields at the root level (not under .data),
+        // so we pass "result" itself, not "result.data".
+        renderWallet(result, uid);
         document.getElementById('status-msg').innerText = 'Synced successfully.';
     } catch (err) {
-        document.getElementById('status-msg').innerText = 'Network telemetry failed.';
+        document.getElementById('status-msg').innerText = DEBUG_MODE
+            ? 'Network telemetry failed.'
+            : 'Something went wrong. Please try again.';
         tsLog(`💥 CRITICAL FETCH ERROR: ${err.message}`);
     } finally {
         if (btn) btn.disabled = false;
@@ -253,7 +283,9 @@ async function startPayment(planKey) {
         const data = JSON.parse(rawText);
 
         if (!data.success) {
-            document.getElementById('status-msg').innerText = 'Order Error: ' + data.error;
+            document.getElementById('status-msg').innerText = DEBUG_MODE
+                ? 'Order Error: ' + data.error
+                : 'Unable to start payment. Please try again.';
             return;
         }
 
@@ -266,7 +298,9 @@ async function startPayment(planKey) {
             redirectTarget: '_self'
         });
     } catch (err) {
-        document.getElementById('status-msg').innerText = 'Transaction instance failed.';
+        document.getElementById('status-msg').innerText = DEBUG_MODE
+            ? 'Transaction instance failed.'
+            : 'Payment could not be started. Please try again.';
         tsLog(`💥 PAYMENT ERROR: ${err.message}`);
     }
 }
