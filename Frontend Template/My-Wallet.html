@@ -9,48 +9,38 @@
         --ts-text-muted: #a1a1aa;
         --ts-gold: #ffb347;
     }
-
     .ts-master-wrapper { width: 100%; max-width: 480px; margin: 20px auto; font-family: 'Segoe UI', sans-serif; color: var(--ts-text-primary); box-sizing: border-box; }
     .ts-master-wrapper * { box-sizing: border-box; }
-
     .ts-profile-header { background: var(--ts-card-bg); border: 1px solid var(--ts-card-border); border-radius: 16px 16px 0 0; padding: 24px; display: flex; align-items: center; gap: 20px; }
     .ts-avatar-box { position: relative; width: 76px; height: 76px; border-radius: 50%; background: linear-gradient(135deg, var(--ts-accent-cyan), var(--ts-accent-purple)); padding: 3px; }
     .ts-avatar-inner { width: 100%; height: 100%; border-radius: 50%; background: #0a0e27; display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: 800; color: var(--ts-accent-cyan); }
     .ts-profile-info { display: flex; flex-direction: column; gap: 4px; }
     .ts-profile-username { font-size: 18px; font-weight: 700; color: #fff; }
     .ts-profile-badge { font-size: 12px; font-weight: 700; text-transform: uppercase; color: var(--ts-gold); }
-
     .ts-wallet-body { background: var(--ts-card-bg); border-left: 1px solid var(--ts-card-border); border-right: 1px solid var(--ts-card-border); border-bottom: 1px solid var(--ts-card-border); border-radius: 0 0 16px 16px; padding: 24px; }
     .ts-token-matrix { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; }
     .ts-matrix-box { background: rgba(0, 0, 0, 0.3); border: 1px solid var(--ts-card-border); border-radius: 12px; padding: 16px; text-align: center; }
     .ts-matrix-box span { display: block; font-size: 11px; color: var(--ts-text-muted); text-transform: uppercase; margin-bottom: 6px; }
     .ts-matrix-value { font-size: 22px; font-weight: 800; color: #fff; }
-
     .ts-progress-container { margin-bottom: 24px; }
     .ts-progress-labels { display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 8px; color: var(--ts-text-muted); }
     .ts-progress-track { width: 100%; height: 8px; background: rgba(255, 255, 255, 0.05); border-radius: 10px; overflow: hidden; }
     .ts-progress-fill { height: 100%; width: 0%; background: linear-gradient(90deg, var(--ts-accent-purple), #ef4444); border-radius: 10px; transition: width 0.8s; }
-
     .ts-plans-header { font-size: 12px; font-weight: 700; text-transform: uppercase; color: var(--ts-accent-cyan); margin-bottom: 14px; }
     .ts-plan-card { background: rgba(0, 0, 0, 0.2); border: 1px solid var(--ts-card-border); border-radius: 10px; padding: 16px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; position: relative; }
-
     .ts-plan-pro { background: rgba(139, 92, 246, 0.05); border: 1px solid transparent; background-clip: padding-box; }
     .ts-plan-pro::before { content: ''; position: absolute; top: -1px; left: -1px; right: -1px; bottom: -1px; border-radius: 10px; background: linear-gradient(90deg, #00d9ff, #8b5cf6, #ffb347, #00d9ff); background-size: 300% 300%; z-index: -1; animation: ts-glow 4s linear infinite; }
     @keyframes ts-glow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
     .ts-popular-badge { position: absolute; top: -10px; right: 16px; background: linear-gradient(135deg, #ffb347, #f59e0b); color: #000; font-size: 10px; font-weight: 800; padding: 3px 10px; border-radius: 12px; text-transform: uppercase; }
-
     .ts-plan-details h4 { margin: 0 0 4px 0; font-size: 15px; color: #fff; }
     .ts-plan-details p { margin: 0; font-size: 12px; color: var(--ts-text-muted); }
     .ts-buy-btn { background: var(--ts-gold); color: #000; border: none; padding: 8px 16px; border-radius: 6px; font-weight: 700; cursor: pointer; z-index: 1; }
-
+    .ts-buy-btn:disabled { opacity: 0.5; cursor: not-allowed; }
     .ts-refresh-action { background: rgba(255,255,255,0.05); color: #fff; border: 1px solid var(--ts-card-border); padding: 12px; width: 100%; border-radius: 8px; font-weight: 600; cursor: pointer; margin-top: 10px; }
     #status-msg { margin-top: 12px; font-size: 13px; color: var(--ts-text-muted); text-align: center; }
-
     .ts-debug-box { background: #000; border: 1px solid #ef4444; color: #10b981; font-family: monospace; font-size: 11px; padding: 12px; border-radius: 8px; margin-bottom: 20px; overflow-x: auto; white-space: pre-wrap; display: none; }
     .ts-debug-title { color: #ef4444; font-weight: bold; margin-bottom: 5px; text-transform: uppercase; }
 </style>
-
-<script src="https://sdk.cashfree.com/js/v3/cashfree.js"></script>
 
 <div class="ts-master-wrapper">
     <div class="ts-profile-header">
@@ -62,14 +52,11 @@
             <div id="w-plan" class="ts-profile-badge">Syncing...</div>
         </div>
     </div>
-
     <div class="ts-wallet-body">
-
         <div id="ts-debug-console" class="ts-debug-box">
             <div class="ts-debug-title">Terminal Diagnostic Log</div>
             <div id="ts-debug-log">Standing by...</div>
         </div>
-
         <div class="ts-token-matrix">
             <div class="ts-matrix-box">
                 <span>Total Tokens</span>
@@ -80,7 +67,6 @@
                 <div id="w-used" class="ts-matrix-value">—</div>
             </div>
         </div>
-
         <div class="ts-progress-container">
             <div class="ts-progress-labels">
                 <span>Quota Consumption</span>
@@ -90,9 +76,7 @@
                 <div id="w-progress-fill" class="ts-progress-fill"></div>
             </div>
         </div>
-
         <div class="ts-plans-header">Upgrade Infrastructure</div>
-
         <div class="ts-plan-card">
             <div class="ts-plan-details">
                 <h4>Lite Plan</h4>
@@ -100,7 +84,6 @@
             </div>
             <button class="ts-buy-btn" onclick="startPayment('lite')">Upgrade</button>
         </div>
-
         <div class="ts-plan-card ts-plan-pro">
             <div class="ts-popular-badge">Most Popular</div>
             <div class="ts-plan-details">
@@ -109,7 +92,6 @@
             </div>
             <button class="ts-buy-btn" onclick="startPayment('pro')">Upgrade</button>
         </div>
-
         <div class="ts-plan-card">
             <div class="ts-plan-details">
                 <h4>Max Plan</h4>
@@ -117,16 +99,35 @@
             </div>
             <button class="ts-buy-btn" onclick="startPayment('max')">Upgrade</button>
         </div>
-
         <button id="refresh-btn" class="ts-refresh-action" onclick="refreshWallet()">Force Sync Balance</button>
         <p id="status-msg"></p>
     </div>
 </div>
 
 <script type="text/javascript">
-/* ✅ ফিক্স: worker workers.dev subdomain না, আসল প্রোডাকশন কাস্টম ডোমেইন ব্যবহার করা হচ্ছে
-   (যেটা আপনার Payment পেজে কাজ করছে, একই worker সবগুলো route হ্যান্ডেল করে) */
 const WORKER_BASE = 'https://www.techstora.com';
+
+let cashfreeSDKPromise = null;
+function loadCashfreeSDK() {
+    if (window.Cashfree) return Promise.resolve();
+    if (cashfreeSDKPromise) return cashfreeSDKPromise;
+    cashfreeSDKPromise = new Promise((resolve, reject) => {
+        const existing = document.querySelector('script[src="https://sdk.cashfree.com/js/v3/cashfree.js"]');
+        if (existing) {
+            existing.addEventListener('load', resolve);
+            existing.addEventListener('error', reject);
+            if (window.Cashfree) resolve();
+            return;
+        }
+        const s = document.createElement('script');
+        s.src = 'https://sdk.cashfree.com/js/v3/cashfree.js';
+        s.onload = resolve;
+        s.onerror = reject;
+        document.head.appendChild(s);
+    });
+    return cashfreeSDKPromise;
+}
+loadCashfreeSDK();
 
 function tsLog(message) {
     const consoleBox = document.getElementById('ts-debug-console');
@@ -255,6 +256,9 @@ async function startPayment(planKey) {
             document.getElementById('status-msg').innerText = 'Order Error: ' + data.error;
             return;
         }
+
+        tsLog('⏳ Waiting for Cashfree SDK...');
+        await loadCashfreeSDK();
 
         const cashfree = Cashfree({ mode: 'production' });
         cashfree.checkout({
