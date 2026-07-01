@@ -1,27 +1,265 @@
 <style>
-    .wallet-card { border: 1px solid #333; border-radius: 12px; padding: 24px; max-width: 420px; margin: 20px auto; background: #111; font-family: sans-serif; color: #eee; }
-    .wallet-card h2 { color: #ffb347; margin-top: 0; font-size: 20px; letter-spacing: 0.5px; }
-    .row { display: flex; justify-content: space-between; margin: 12px 0; font-size: 15px; }
-    .row span:first-child { color: #999; }
-    .row span:last-child { font-weight: bold; color: #fff; }
-    button { background: #ffb347; color: #000; border: none; padding: 12px 24px; border-radius: 8px; font-weight: bold; cursor: pointer; margin-top: 16px; width: 100%; transition: opacity 0.2s; }
-    button:disabled { opacity: 0.5; cursor: not-allowed; }
-    #status-msg { margin-top: 12px; font-size: 13px; color: #999; text-align: center; }
+    :root {
+        --ts-bg-main: #0a0e27;
+        --ts-card-bg: rgba(255, 255, 255, 0.03);
+        --ts-card-border: rgba(255, 255, 255, 0.08);
+        --ts-accent-cyan: #00d9ff;
+        --ts-accent-purple: #8b5cf6;
+        --ts-text-primary: #f5f5f5;
+        --ts-text-muted: #a1a1aa;
+        --ts-gold: #ffb347;
+    }
+
+    .ts-master-wrapper {
+        width: 100%;
+        max-width: 480px;
+        margin: 20px auto;
+        font-family: 'Segoe UI', 'Inter', system-ui, sans-serif;
+        color: var(--ts-text-primary);
+        box-sizing: border-box;
+    }
+    .ts-master-wrapper * { box-sizing: border-box; }
+
+    /* Instagram Styled High-Ticket Profile Architecture */
+    .ts-profile-header {
+        background: var(--ts-card-bg);
+        border: 1px solid var(--ts-card-border);
+        border-radius: 16px 16px 0 0;
+        padding: 24px;
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        background: linear-gradient(180deg, rgba(139, 92, 246, 0.05) 0%, rgba(0,0,0,0) 100%);
+    }
+
+    .ts-avatar-box {
+        position: relative;
+        width: 76px;
+        height: 76px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--ts-accent-cyan), var(--ts-accent-purple));
+        padding: 3px;
+    }
+    .ts-avatar-inner {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        background: #0a0e27;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 22px;
+        font-weight: 800;
+        color: var(--ts-accent-cyan);
+        letter-spacing: 1px;
+    }
+
+    .ts-profile-info {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+    }
+    .ts-profile-username {
+        font-size: 18px;
+        font-weight: 700;
+        color: #fff;
+    }
+    .ts-profile-badge {
+        font-size: 12px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: var(--ts-gold);
+    }
+
+    /* Core Matrix Token Counter Cards */
+    .ts-wallet-body {
+        background: var(--ts-card-bg);
+        border-left: 1px solid var(--ts-card-border);
+        border-right: 1px solid var(--ts-card-border);
+        border-bottom: 1px solid var(--ts-card-border);
+        border-radius: 0 0 16px 16px;
+        padding: 24px;
+    }
+
+    .ts-token-matrix {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+        margin-bottom: 24px;
+    }
+    .ts-matrix-box {
+        background: rgba(0, 0, 0, 0.3);
+        border: 1px solid var(--ts-card-border);
+        border-radius: 12px;
+        padding: 16px;
+        text-align: center;
+    }
+    .ts-matrix-box span {
+        display: block;
+        font-size: 11px;
+        color: var(--ts-text-muted);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 6px;
+    }
+    .ts-matrix-value {
+        font-size: 22px;
+        font-weight: 800;
+        color: #fff;
+    }
+
+    /* Psychological Visual Progress Engine */
+    .ts-progress-container {
+        margin-bottom: 24px;
+    }
+    .ts-progress-labels {
+        display: flex;
+        justify-content: space-between;
+        font-size: 13px;
+        margin-bottom: 8px;
+        color: var(--ts-text-muted);
+    }
+    .ts-progress-track {
+        width: 100%;
+        height: 8px;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 10px;
+        overflow: hidden;
+    }
+    .ts-progress-fill {
+        height: 100%;
+        width: 0%; /* Dynamic Injection */
+        background: linear-gradient(90deg, var(--ts-accent-purple), #ef4444);
+        border-radius: 10px;
+        transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* Premium Plan Purchase Pipeline Mapping */
+    .ts-plans-header {
+        font-size: 12px;
+        font-weight: 700;
+        text-transform: uppercase;
+        color: var(--ts-accent-cyan);
+        letter-spacing: 1.5px;
+        margin-bottom: 14px;
+    }
+
+    .ts-plan-card {
+        background: rgba(0, 0, 0, 0.2);
+        border: 1px solid var(--ts-card-border);
+        border-radius: 10px;
+        padding: 16px;
+        margin-bottom: 12px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        transition: border-color 0.2s;
+    }
+    .ts-plan-card:hover { border-color: rgba(255, 179, 71, 0.3); }
+
+    .ts-plan-details h4 { margin: 0 0 4px 0; font-size: 15px; color: #fff; }
+    .ts-plan-details p { margin: 0; font-size: 12px; color: var(--ts-text-muted); }
+
+    .ts-buy-btn {
+        background: var(--ts-gold);
+        color: #000;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 6px;
+        font-weight: 700;
+        font-size: 13px;
+        cursor: pointer;
+        transition: opacity 0.2s;
+    }
+    .ts-buy-btn:hover { opacity: 0.9; }
+
+    .ts-refresh-action {
+        background: rgba(255,255,255,0.05);
+        color: #fff;
+        border: 1px solid var(--ts-card-border);
+        padding: 12px;
+        width: 100%;
+        border-radius: 8px;
+        font-weight: 600;
+        cursor: pointer;
+        margin-top: 10px;
+        font-size: 13px;
+        transition: background 0.2s;
+    }
+    .ts-refresh-action:hover { background: rgba(255,255,255,0.1); }
+
+    #status-msg { margin-top: 12px; font-size: 13px; color: var(--ts-text-muted); text-align: center; }
 </style>
 
+<script src="https://sdk.cashfree.com/js/v3/cashfree.js"></script>
+
 <div class="ts-master-wrapper">
-    <div class="wallet-card">
-        <h2>My Wallet</h2>
-        <div class="row"><span>Plan</span><span id="w-plan">—</span></div>
-        <div class="row"><span>Tokens Left</span><span id="w-tokens">—</span></div>
-        <div class="row"><span>Valid Until</span><span id="w-expiry">—</span></div>
-        <button id="refresh-btn" onclick="refreshWallet()">Refresh Balance</button>
+    <div class="ts-profile-header">
+        <div class="ts-avatar-box">
+            <div id="ts-avatar-id" class="ts-avatar-inner">TS</div>
+        </div>
+        <div class="ts-profile-info">
+            <div id="ts-display-uid" class="ts-profile-username">UID: —</div>
+            <div id="w-plan" class="ts-profile-badge">Free Tier</div>
+        </div>
+    </div>
+
+    <div class="ts-wallet-body">
+        <div class="ts-token-matrix">
+            <div class="ts-matrix-box">
+                <span>Total Tokens</span>
+                <div id="w-total" class="ts-matrix-value">—</div>
+            </div>
+            <div class="ts-matrix-box">
+                <span>Used Tokens</span>
+                <div id="w-used" class="ts-matrix-value">—</div>
+            </div>
+        </div>
+
+        <div class="ts-progress-container">
+            <div class="ts-progress-labels">
+                <span>Quota Consumption</span>
+                <span id="w-percent">0%</span>
+            </div>
+            <div class="ts-progress-track">
+                <div id="w-progress-fill" class="ts-progress-fill"></div>
+            </div>
+        </div>
+
+        <div class="ts-plans-header">Upgrade Infrastructure</div>
+        
+        <div class="ts-plan-card">
+            <div class="ts-plan-details">
+                <h4>Lite Plan</h4>
+                <p>~1,230 Tokens (₹99 / Fixed Pool)</p>
+            </div>
+            <button class="ts-buy-btn" onclick="startPayment('lite')">Upgrade</button>
+        </div>
+
+        <div class="ts-plan-card">
+            <div class="ts-plan-details">
+                <h4>Pro Plan</h4>
+                <p>~3,730 Tokens (₹299 / Fixed Pool)</p>
+            </div>
+            <button class="ts-buy-btn" onclick="startPayment('pro')">Upgrade</button>
+        </div>
+
+        <div class="ts-plan-card">
+            <div class="ts-plan-details">
+                <h4>Max Plan</h4>
+                <p>~10,480 Tokens (₹799 / Fixed Pool)</p>
+            </div>
+            <button class="ts-buy-btn" onclick="startPayment('max')">Upgrade</button>
+        </div>
+
+        <button id="refresh-btn" class="ts-refresh-action" onclick="refreshWallet()">Sync Balance</button>
         <p id="status-msg"></p>
     </div>
 </div>
 
 <script type="text/javascript">
-const WORKER_BASE = 'https://www.techstora.com';
+const WORKER_BASE = 'https://youtube.techstor.workers.dev';
 const CACHE_KEY = 'ts_wallet_cache';
 const CACHE_TTL_MS = 15 * 60 * 1000;
 
@@ -36,18 +274,40 @@ function getUID() {
             }
         }
     } catch (e) {
-        console.warn('TechStora Info: Operating in Guest Mode.');
+        console.warn('TechStora Guest Mode Activated.');
     }
     return null;
 }
 
-function renderWallet(data) {
-    document.getElementById('w-plan').innerText = data.plan_name || 'Free';
-    document.getElementById('w-tokens').innerText = `${data.remaining_tokens ?? 0} / ${data.total_tokens ?? 0}`;
-    document.getElementById('w-expiry').innerText = data.is_free ? 'Lifetime (Free)' : (data.plan_expiry || '—');
+function renderWallet(data, uid) {
+    if (uid) {
+        document.getElementById('ts-display-uid').innerText = `UID: ${uid}`;
+        document.getElementById('ts-avatar-id').innerText = uid.substring(0, 2).toUpperCase();
+    }
+    
+    document.getElementById('w-plan').innerText = data.plan_name || 'Free Tier';
+    
+    const total = data.total_tokens ?? 0;
+    const remaining = data.remaining_tokens ?? 0;
+    const used = Math.max(total - remaining, 0);
+    
+    document.getElementById('w-total').innerText = total;
+    document.getElementById('w-used').innerText = used;
+
+    // ── Psychological Boost Bar Engine ──
+    // যদি ইউজার টোকেন খরচ করে থাকে, তবে ম্যাথম্যাটিক্যাল রেশিওর চেয়ে ২ থেকে ৩% বার বেশি ডানদিকে স্লাইড করবে
+    let realPercent = total > 0 ? Math.round((used / total) * 100) : 0;
+    let visualPercent = realPercent;
+    
+    if (realPercent > 0 && realPercent < 95) {
+        visualPercent = Math.min(realPercent + Math.floor(Math.random() * 2) + 2, 98);
+    }
+    
+    document.getElementById('w-percent').innerText = `${realPercent}%`;
+    document.getElementById('w-progress-fill').style.width = `${visualPercent}%`;
 }
 
-function loadFromCache() {
+function loadFromCache(uid) {
     const raw = localStorage.getItem(CACHE_KEY);
     if (!raw) return false;
     let cached;
@@ -55,10 +315,7 @@ function loadFromCache() {
     const age = Date.now() - cached.timestamp;
     if (age > CACHE_TTL_MS) return false;
     
-    renderWallet(cached.data);
-    const minsAgo = Math.floor(age / 60000);
-    document.getElementById('status-msg').innerText =
-        minsAgo < 1 ? 'Updated just now' : `Updated ${minsAgo} min ago`;
+    renderWallet(cached.data, uid);
     return true;
 }
 
@@ -70,7 +327,7 @@ async function refreshWallet() {
     }
     const btn = document.getElementById('refresh-btn');
     btn.disabled = true;
-    document.getElementById('status-msg').innerText = 'Fetching live data...';
+    document.getElementById('status-msg').innerText = 'Syncing network balance...';
     try {
         const res = await fetch(`${WORKER_BASE}/api/v1/wallet/status?uid=${uid}`, {
             method: 'GET',
@@ -78,25 +335,56 @@ async function refreshWallet() {
         });
         const result = await res.json();
         if (!result.success) {
-            document.getElementById('status-msg').innerText = 'Error: ' + result.error;
+            document.getElementById('status-msg').innerText = 'Sync Failed: ' + result.error;
             return;
         }
         
         localStorage.setItem(CACHE_KEY, JSON.stringify({ data: result.data, timestamp: Date.now() }));
-        renderWallet(result.data);
-        document.getElementById('status-msg').innerText = 'Updated just now';
+        renderWallet(result.data, uid);
+        document.getElementById('status-msg').innerText = 'Synced successfully';
     } catch (err) {
-        document.getElementById('status-msg').innerText = 'Network error, please try again.';
+        document.getElementById('status-msg').innerText = 'Network latency detected.';
     } finally {
         btn.disabled = false;
     }
 }
 
-// HydraJS safely triggers this runtime context after DOM injection
+async function startPayment(planKey) {
+    const uid = getUID();
+    if (!uid) {
+        document.getElementById('status-msg').innerText = 'Please log in to purchase.';
+        return;
+    }
+    document.getElementById('status-msg').innerText = 'Initializing Secure Tunnel...';
+    try {
+        const res = await fetch(`${WORKER_BASE}/api/v1/payment/create-order`, {
+            method: 'POST',
+            credentials: 'include',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ uid: uid, plan_key: planKey })
+        });
+        const data = await res.json();
+        if (!data.success) {
+            document.getElementById('status-msg').innerText = 'Initialization Error: ' + data.error;
+            return;
+        }
+
+        const cashfree = Cashfree({ mode: 'production' });
+        cashfree.checkout({
+            paymentSessionId: data.payment_session_id,
+            redirectTarget: '_self'
+        });
+    } catch (err) {
+        document.getElementById('status-msg').innerText = 'Order injection failed.';
+    }
+}
+
+// Runtime Context Activation
 (function() {
-    const shown = loadFromCache();
-    if (!shown) {
-        document.getElementById('status-msg').innerText = 'Tap Refresh to load live data.';
+    const uid = getUID();
+    const shown = loadFromCache(uid);
+    if (!shown && uid) {
+        refreshWallet();
     }
 })();
 </script>
