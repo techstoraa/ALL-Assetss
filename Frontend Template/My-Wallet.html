@@ -13,7 +13,6 @@
     .ts-master-wrapper { width: 100%; max-width: 480px; margin: 20px auto; font-family: 'Segoe UI', sans-serif; color: var(--ts-text-primary); box-sizing: border-box; }
     .ts-master-wrapper * { box-sizing: border-box; }
 
-    /* Profile Header */
     .ts-profile-header { background: var(--ts-card-bg); border: 1px solid var(--ts-card-border); border-radius: 16px 16px 0 0; padding: 24px; display: flex; align-items: center; gap: 20px; }
     .ts-avatar-box { position: relative; width: 76px; height: 76px; border-radius: 50%; background: linear-gradient(135deg, var(--ts-accent-cyan), var(--ts-accent-purple)); padding: 3px; }
     .ts-avatar-inner { width: 100%; height: 100%; border-radius: 50%; background: #0a0e27; display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: 800; color: var(--ts-accent-cyan); }
@@ -21,24 +20,20 @@
     .ts-profile-username { font-size: 18px; font-weight: 700; color: #fff; }
     .ts-profile-badge { font-size: 12px; font-weight: 700; text-transform: uppercase; color: var(--ts-gold); }
 
-    /* Token Matrix */
     .ts-wallet-body { background: var(--ts-card-bg); border-left: 1px solid var(--ts-card-border); border-right: 1px solid var(--ts-card-border); border-bottom: 1px solid var(--ts-card-border); border-radius: 0 0 16px 16px; padding: 24px; }
     .ts-token-matrix { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; }
     .ts-matrix-box { background: rgba(0, 0, 0, 0.3); border: 1px solid var(--ts-card-border); border-radius: 12px; padding: 16px; text-align: center; }
     .ts-matrix-box span { display: block; font-size: 11px; color: var(--ts-text-muted); text-transform: uppercase; margin-bottom: 6px; }
     .ts-matrix-value { font-size: 22px; font-weight: 800; color: #fff; }
 
-    /* Progress Bar */
     .ts-progress-container { margin-bottom: 24px; }
     .ts-progress-labels { display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 8px; color: var(--ts-text-muted); }
     .ts-progress-track { width: 100%; height: 8px; background: rgba(255, 255, 255, 0.05); border-radius: 10px; overflow: hidden; }
     .ts-progress-fill { height: 100%; width: 0%; background: linear-gradient(90deg, var(--ts-accent-purple), #ef4444); border-radius: 10px; transition: width 0.8s; }
 
-    /* Plans Architecture */
     .ts-plans-header { font-size: 12px; font-weight: 700; text-transform: uppercase; color: var(--ts-accent-cyan); margin-bottom: 14px; }
     .ts-plan-card { background: rgba(0, 0, 0, 0.2); border: 1px solid var(--ts-card-border); border-radius: 10px; padding: 16px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; position: relative; }
-    
-    /* Glowing Pro Plan */
+
     .ts-plan-pro { background: rgba(139, 92, 246, 0.05); border: 1px solid transparent; background-clip: padding-box; }
     .ts-plan-pro::before { content: ''; position: absolute; top: -1px; left: -1px; right: -1px; bottom: -1px; border-radius: 10px; background: linear-gradient(90deg, #00d9ff, #8b5cf6, #ffb347, #00d9ff); background-size: 300% 300%; z-index: -1; animation: ts-glow 4s linear infinite; }
     @keyframes ts-glow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
@@ -47,11 +42,10 @@
     .ts-plan-details h4 { margin: 0 0 4px 0; font-size: 15px; color: #fff; }
     .ts-plan-details p { margin: 0; font-size: 12px; color: var(--ts-text-muted); }
     .ts-buy-btn { background: var(--ts-gold); color: #000; border: none; padding: 8px 16px; border-radius: 6px; font-weight: 700; cursor: pointer; z-index: 1; }
-    
+
     .ts-refresh-action { background: rgba(255,255,255,0.05); color: #fff; border: 1px solid var(--ts-card-border); padding: 12px; width: 100%; border-radius: 8px; font-weight: 600; cursor: pointer; margin-top: 10px; }
     #status-msg { margin-top: 12px; font-size: 13px; color: var(--ts-text-muted); text-align: center; }
 
-    /* DEBUG CONSOLE STYLING */
     .ts-debug-box { background: #000; border: 1px solid #ef4444; color: #10b981; font-family: monospace; font-size: 11px; padding: 12px; border-radius: 8px; margin-bottom: 20px; overflow-x: auto; white-space: pre-wrap; display: none; }
     .ts-debug-title { color: #ef4444; font-weight: bold; margin-bottom: 5px; text-transform: uppercase; }
 </style>
@@ -70,7 +64,7 @@
     </div>
 
     <div class="ts-wallet-body">
-        
+
         <div id="ts-debug-console" class="ts-debug-box">
             <div class="ts-debug-title">Terminal Diagnostic Log</div>
             <div id="ts-debug-log">Standing by...</div>
@@ -98,7 +92,7 @@
         </div>
 
         <div class="ts-plans-header">Upgrade Infrastructure</div>
-        
+
         <div class="ts-plan-card">
             <div class="ts-plan-details">
                 <h4>Lite Plan</h4>
@@ -130,27 +124,18 @@
 </div>
 
 <script type="text/javascript">
-/* ========================================== */
-/* SECTION 4: GLOBAL VARIABLES & CONFIG       */
-/* কাজ: API রুট সেট করা। ক্যাশ সিস্টেম বাতিল করা হয়েছে। */
-/* ========================================== */
-const WORKER_BASE = 'https://youtube.techstor.workers.dev';
+/* ✅ ফিক্স: worker workers.dev subdomain না, আসল প্রোডাকশন কাস্টম ডোমেইন ব্যবহার করা হচ্ছে
+   (যেটা আপনার Payment পেজে কাজ করছে, একই worker সবগুলো route হ্যান্ডেল করে) */
+const WORKER_BASE = 'https://www.techstora.com';
 
-/* ========================================== */
-/* SECTION 5: UTILITY & DEBUGGING FUNCTIONS   */
-/* কাজ: UID এক্সট্রাক্ট করা এবং স্ক্রিনে লাইভ এরর প্রিন্ট করা */
-/* ========================================== */
-
-// ডিবাগ প্রিন্টার: ব্রাউজারের UI-তেই লাল বক্সে লগ দেখাবে
 function tsLog(message) {
     const consoleBox = document.getElementById('ts-debug-console');
     const logArea = document.getElementById('ts-debug-log');
-    consoleBox.style.display = 'block'; // এরর আসলে বক্সটা ভিজিবল হবে
+    consoleBox.style.display = 'block';
     const time = new Date().toLocaleTimeString();
     logArea.innerHTML += `\n[${time}] ${message}`;
 }
 
-// ওডু সেশন থেকে UID তোলার ডাইরেক্ট ইঞ্জিন
 function getUID() {
     try {
         const targetWindow = window.parent || window;
@@ -172,16 +157,10 @@ function getUID() {
     return null;
 }
 
-/* ========================================== */
-/* SECTION 6: CORE BUSINESS LOGIC (SYNC)      */
-/* কাজ: API থেকে ডেটা এনে ওয়ালেটের UI রেন্ডার করা */
-/* ========================================== */
-
 function renderWallet(data, uid) {
     tsLog(`🎨 Rendering UI with Data: ${JSON.stringify(data)}`);
     const safeData = data || { plan_name: 'Free Tier', total_tokens: 200, remaining_tokens: 200 };
 
-    // অ্যাভাটার ও ইউআইডি আপডেট
     if (uid && uid !== "unknown_uid") {
         document.getElementById('ts-display-uid').innerText = `UID: ${uid}`;
         document.getElementById('ts-avatar-id').innerText = uid.substring(0, 2).toUpperCase();
@@ -189,63 +168,58 @@ function renderWallet(data, uid) {
         document.getElementById('ts-display-uid').innerText = `UID: Guest`;
         document.getElementById('ts-avatar-id').innerText = `TS`;
     }
-    
+
     document.getElementById('w-plan').innerText = safeData.plan_name || 'Free Tier';
-    
-    // টোকেন ম্যাথ (ফ্রি ইউজার ফলব্যাক সহ)
+
     let total = safeData.total_tokens || 200;
     let remaining = safeData.remaining_tokens !== undefined ? safeData.remaining_tokens : 200;
     let used = Math.max(total - remaining, 0);
-    
+
     document.getElementById('w-total').innerText = total;
     document.getElementById('w-used').innerText = used;
 
-    // সাইকোলজিক্যাল প্রোগ্রেস বার (২-৩% বুস্ট)
     let realPercent = total > 0 ? Math.round((used / total) * 100) : 0;
     let visualPercent = realPercent;
     if (realPercent > 0 && realPercent < 95) {
         visualPercent = Math.min(realPercent + 3, 98);
     }
-    
+
     document.getElementById('w-percent').innerText = `${realPercent}%`;
     document.getElementById('w-progress-fill').style.width = `${visualPercent}%`;
 }
 
-// মেইন ফেচ ইঞ্জিন (নো ক্যাশ, এভরি টাইম লাইভ রিকোয়েস্ট)
 async function refreshWallet() {
     tsLog("🚀 Initiating Force Sync...");
     const uid = getUID();
-    
+
     if (!uid) {
         document.getElementById('status-msg').innerText = 'Authentication required.';
         tsLog("❌ Sync aborted: UID is null.");
         return;
     }
-    
+
     const btn = document.getElementById('refresh-btn');
     if (btn) btn.disabled = true;
     document.getElementById('status-msg').innerText = 'Establishing secure tunnel...';
-    
+
     try {
         const url = `${WORKER_BASE}/api/v1/wallet/status?uid=${uid}`;
         tsLog(`📡 Fetching API: ${url}`);
-        
+
         const res = await fetch(url, { method: 'GET', credentials: 'include' });
         tsLog(`HTTP Status: ${res.status}`);
-        
-        // ডাইরেক্ট Raw Text রিড করে ডিবাগ বক্সে ফেলা হচ্ছে
+
         const rawText = await res.text();
         tsLog(`📦 Raw API Response: ${rawText}`);
-        
-        // এবার Text টাকে JSON বানাচ্ছি
+
         const result = JSON.parse(rawText);
-        
+
         if (!result.success) {
             document.getElementById('status-msg').innerText = 'Sync Error: ' + result.error;
             tsLog(`❌ Backend Logic Error: ${result.error}`);
             return;
         }
-        
+
         renderWallet(result.data, uid);
         document.getElementById('status-msg').innerText = 'Synced successfully.';
     } catch (err) {
@@ -256,11 +230,6 @@ async function refreshWallet() {
     }
 }
 
-/* ========================================== */
-/* SECTION 7: PAYMENT GATEWAY & IGNITION      */
-/* কাজ: Cashfree কল করা এবং পেজ লোডে ইঞ্জিন স্টার্ট করা */
-/* ========================================== */
-
 async function startPayment(planKey) {
     const uid = getUID();
     if (!uid) {
@@ -269,7 +238,7 @@ async function startPayment(planKey) {
     }
     document.getElementById('status-msg').innerText = 'Initializing Payment Gateway...';
     tsLog(`💳 Initiating Payment for Plan: ${planKey}`);
-    
+
     try {
         const res = await fetch(`${WORKER_BASE}/api/v1/payment/create-order`, {
             method: 'POST',
@@ -277,11 +246,11 @@ async function startPayment(planKey) {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ uid: uid, plan_key: planKey })
         });
-        
+
         const rawText = await res.text();
         tsLog(`📦 Payment API Response: ${rawText}`);
         const data = JSON.parse(rawText);
-        
+
         if (!data.success) {
             document.getElementById('status-msg').innerText = 'Order Error: ' + data.error;
             return;
@@ -298,7 +267,6 @@ async function startPayment(planKey) {
     }
 }
 
-// Ignition Sequence (বিনা ক্যাশে সরাসরি লাইভ ডেটা টানবে)
 (function() {
     tsLog("⚡ HydraJS Engine Booting...");
     refreshWallet();
