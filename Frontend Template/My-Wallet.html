@@ -1,0 +1,102 @@
+<style>
+    .wallet-card { border: 1px solid #333; border-radius: 12px; padding: 24px; max-width: 420px; margin: 20px auto; background: #111; font-family: sans-serif; color: #eee; }
+    .wallet-card h2 { color: #ffb347; margin-top: 0; font-size: 20px; letter-spacing: 0.5px; }
+    .row { display: flex; justify-content: space-between; margin: 12px 0; font-size: 15px; }
+    .row span:first-child { color: #999; }
+    .row span:last-child { font-weight: bold; color: #fff; }
+    button { background: #ffb347; color: #000; border: none; padding: 12px 24px; border-radius: 8px; font-weight: bold; cursor: pointer; margin-top: 16px; width: 100%; transition: opacity 0.2s; }
+    button:disabled { opacity: 0.5; cursor: not-allowed; }
+    #status-msg { margin-top: 12px; font-size: 13px; color: #999; text-align: center; }
+</style>
+
+<div class="ts-master-wrapper">
+    <div class="wallet-card">
+        <h2>My Wallet</h2>
+        <div class="row"><span>Plan</span><span id="w-plan">—</span></div>
+        <div class="row"><span>Tokens Left</span><span id="w-tokens">—</span></div>
+        <div class="row"><span>Valid Until</span><span id="w-expiry">—</span></div>
+        <button id="refresh-btn" onclick="refreshWallet()">Refresh Balance</button>
+        <p id="status-msg"></p>
+    </div>
+</div>
+
+<script type="text/javascript">
+const WORKER_BASE = 'https://www.techstora.com';
+const CACHE_KEY = 'ts_wallet_cache';
+const CACHE_TTL_MS = 15 * 60 * 1000;
+
+function getUID() {
+    try {
+        const scripts = document.getElementsByTagName('script');
+        for (let script of scripts) {
+            const text = script.innerHTML || script.textContent;
+            if (text && text.includes('__session_info__') && text.includes('"uid"')) {
+                const match = text.match(/"uid"\s*:\s*(\d+)/);
+                if (match && match[1]) return match[1];
+            }
+        }
+    } catch (e) {
+        console.warn('TechStora Info: Operating in Guest Mode.');
+    }
+    return null;
+}
+
+function renderWallet(data) {
+    document.getElementById('w-plan').innerText = data.plan_name || 'Free';
+    document.getElementById('w-tokens').innerText = `${data.remaining_tokens ?? 0} / ${data.total_tokens ?? 0}`;
+    document.getElementById('w-expiry').innerText = data.is_free ? 'Lifetime (Free)' : (data.plan_expiry || '—');
+}
+
+function loadFromCache() {
+    const raw = localStorage.getItem(CACHE_KEY);
+    if (!raw) return false;
+    let cached;
+    try { cached = JSON.parse(raw); } catch { return false; }
+    const age = Date.now() - cached.timestamp;
+    if (age > CACHE_TTL_MS) return false;
+    
+    renderWallet(cached.data);
+    const minsAgo = Math.floor(age / 60000);
+    document.getElementById('status-msg').innerText =
+        minsAgo < 1 ? 'Updated just now' : `Updated ${minsAgo} min ago`;
+    return true;
+}
+
+async function refreshWallet() {
+    const uid = getUID();
+    if (!uid) {
+        document.getElementById('status-msg').innerText = 'Please log in first.';
+        return;
+    }
+    const btn = document.getElementById('refresh-btn');
+    btn.disabled = true;
+    document.getElementById('status-msg').innerText = 'Fetching live data...';
+    try {
+        const res = await fetch(`${WORKER_BASE}/api/v1/wallet/status?uid=${uid}`, {
+            method: 'GET',
+            credentials: 'include'
+        });
+        const result = await res.json();
+        if (!result.success) {
+            document.getElementById('status-msg').innerText = 'Error: ' + result.error;
+            return;
+        }
+        
+        localStorage.setItem(CACHE_KEY, JSON.stringify({ data: result.data, timestamp: Date.now() }));
+        renderWallet(result.data);
+        document.getElementById('status-msg').innerText = 'Updated just now';
+    } catch (err) {
+        document.getElementById('status-msg').innerText = 'Network error, please try again.';
+    } finally {
+        btn.disabled = false;
+    }
+}
+
+// HydraJS safely triggers this runtime context after DOM injection
+(function() {
+    const shown = loadFromCache();
+    if (!shown) {
+        document.getElementById('status-msg').innerText = 'Tap Refresh to load live data.';
+    }
+})();
+</script>
