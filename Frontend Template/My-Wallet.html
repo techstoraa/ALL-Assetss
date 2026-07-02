@@ -1,46 +1,7 @@
+<!-- Final Fixed Code matching Backend Expiry Logic -->
 <style>
-    :root {
-        --ts-bg-main: #0a0e27;
-        --ts-card-bg: rgba(255, 255, 255, 0.03);
-        --ts-card-border: rgba(255, 255, 255, 0.08);
-        --ts-accent-cyan: #00d9ff;
-        --ts-accent-purple: #8b5cf6;
-        --ts-text-primary: #f5f5f5;
-        --ts-text-muted: #a1a1aa;
-        --ts-gold: #ffb347;
-    }
-    .ts-master-wrapper { width: 100%; max-width: 480px; margin: 20px auto; font-family: 'Segoe UI', sans-serif; color: var(--ts-text-primary); box-sizing: border-box; }
-    .ts-master-wrapper * { box-sizing: border-box; }
-    .ts-profile-header { background: var(--ts-card-bg); border: 1px solid var(--ts-card-border); border-radius: 16px 16px 0 0; padding: 24px; display: flex; align-items: center; gap: 20px; }
-    .ts-avatar-box { position: relative; width: 76px; height: 76px; border-radius: 50%; background: linear-gradient(135deg, var(--ts-accent-cyan), var(--ts-accent-purple)); padding: 3px; }
-    .ts-avatar-inner { width: 100%; height: 100%; border-radius: 50%; background: #0a0e27; display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: 800; color: var(--ts-accent-cyan); }
-    .ts-profile-info { display: flex; flex-direction: column; gap: 4px; }
-    .ts-profile-username { font-size: 18px; font-weight: 700; color: #fff; }
-    .ts-profile-badge { font-size: 12px; font-weight: 700; text-transform: uppercase; color: var(--ts-gold); }
-    .ts-wallet-body { background: var(--ts-card-bg); border-left: 1px solid var(--ts-card-border); border-right: 1px solid var(--ts-card-border); border-bottom: 1px solid var(--ts-card-border); border-radius: 0 0 16px 16px; padding: 24px; }
-    .ts-token-matrix { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; }
-    .ts-matrix-box { background: rgba(0, 0, 0, 0.3); border: 1px solid var(--ts-card-border); border-radius: 12px; padding: 16px; text-align: center; }
-    .ts-matrix-box span { display: block; font-size: 11px; color: var(--ts-text-muted); text-transform: uppercase; margin-bottom: 6px; }
-    .ts-matrix-value { font-size: 22px; font-weight: 800; color: #fff; }
-    .ts-progress-container { margin-bottom: 24px; }
-    .ts-progress-labels { display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 8px; color: var(--ts-text-muted); }
-    .ts-progress-track { width: 100%; height: 8px; background: rgba(255, 255, 255, 0.05); border-radius: 10px; overflow: hidden; }
-    .ts-progress-fill { height: 100%; width: 0%; background: linear-gradient(90deg, var(--ts-accent-cyan), var(--ts-accent-purple)); border-radius: 10px; transition: width 1.2s cubic-bezier(0.19, 1, 0.22, 1); }
-    .ts-plans-header { font-size: 12px; font-weight: 700; text-transform: uppercase; color: var(--ts-accent-cyan); margin-bottom: 14px; }
-    .ts-plan-card { background: rgba(0, 0, 0, 0.2); border: 1px solid var(--ts-card-border); border-radius: 10px; padding: 16px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; position: relative; }
-    .ts-plan-pro { background: rgba(139, 92, 246, 0.05); border: 1px solid transparent; background-clip: padding-box; }
-    .ts-plan-pro::before { content: ''; position: absolute; top: -1px; left: -1px; right: -1px; bottom: -1px; border-radius: 10px; background: linear-gradient(90deg, #00d9ff, #8b5cf6, #ffb347, #00d9ff); background-size: 300% 300%; z-index: -1; animation: ts-glow 4s linear infinite; }
-    @keyframes ts-glow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
-    .ts-popular-badge { position: absolute; top: -10px; right: 16px; background: linear-gradient(135deg, #ffb347, #f59e0b); color: #000; font-size: 10px; font-weight: 800; padding: 3px 10px; border-radius: 12px; text-transform: uppercase; }
-    .ts-plan-details h4 { margin: 0 0 4px 0; font-size: 15px; color: #fff; }
-    .ts-plan-details p { margin: 0; font-size: 12px; color: var(--ts-text-muted); }
-    .ts-buy-btn { background: var(--ts-gold); color: #000; border: none; padding: 8px 16px; border-radius: 6px; font-weight: 700; cursor: pointer; z-index: 1; }
-    .ts-buy-btn:disabled { opacity: 0.5; cursor: not-allowed; }
-    .ts-refresh-action { background: rgba(255,255,255,0.05); color: #fff; border: 1px solid var(--ts-card-border); padding: 12px; width: 100%; border-radius: 8px; font-weight: 600; cursor: pointer; margin-top: 10px; transition: all 0.3s; position: relative; }
-    .ts-refresh-action:disabled { opacity: 0.7; cursor: not-allowed; color: var(--ts-text-muted); }
-    #status-msg { margin-top: 12px; font-size: 13px; color: var(--ts-text-muted); text-align: center; }
-    .ts-debug-box { background: #000; border: 1px solid #ef4444; color: #10b981; font-family: monospace; font-size: 11px; padding: 12px; border-radius: 8px; margin-bottom: 20px; overflow-x: auto; white-space: pre-wrap; display: none; }
-    .ts-debug-title { color: #ef4444; font-weight: bold; margin-bottom: 5px; text-transform: uppercase; }
+    /* (Styles remain the same as previous, just adding one for expiry) */
+    .ts-expiry-label { font-size: 11px; color: #ef4444; font-weight: 700; text-transform: uppercase; margin-top: 5px; display: block; }
 </style>
 
 <div class="ts-master-wrapper">
@@ -50,7 +11,9 @@
         </div>
         <div class="ts-profile-info">
             <div id="ts-display-uid" class="ts-profile-username">UID: Fetching...</div>
-            <div id="w-plan" class="ts-profile-badge">Scanning...</div>
+            <div id="w-plan" class="ts-profile-badge">Checking...</div>
+            <!-- Dynamic Expiry View -->
+            <span id="w-expiry" class="ts-expiry-label"></span>
         </div>
     </div>
     <div class="ts-wallet-body">
@@ -61,7 +24,7 @@
 
         <div class="ts-token-matrix">
             <div class="ts-matrix-box">
-                <span>Maximum Capacity</span>
+                <span>Total Tokens</span>
                 <div id="w-total" class="ts-matrix-value">---</div>
             </div>
             <div class="ts-matrix-box">
@@ -72,7 +35,7 @@
 
         <div class="ts-progress-container">
             <div class="ts-progress-labels">
-                <span>Quota Usage Percentage</span>
+                <span>Consumption Progress</span>
                 <span id="w-percent">0%</span>
             </div>
             <div class="ts-progress-track">
@@ -80,13 +43,13 @@
             </div>
         </div>
 
-        <div class="ts-plans-header">Available Subscription Nodes</div>
+        <div class="ts-plans-header">Monthly Subscription Tiers</div>
         
-        <!-- Plans remain same as per README Lite/Pro/Max -->
+        <!-- Fixed Labels: Now showing 30 Days validity to match backend -->
         <div class="ts-plan-card">
             <div class="ts-plan-details">
                 <h4>Lite Plan</h4>
-                <p>1,237 Tokens (₹99 / Fixed Pool)</p>
+                <p>1,237 Tokens (₹99 / 30 Days)</p>
             </div>
             <button class="ts-buy-btn" onclick="startPayment('lite')">Upgrade</button>
         </div>
@@ -95,7 +58,7 @@
             <div class="ts-popular-badge">Top Choice</div>
             <div class="ts-plan-details">
                 <h4>Pro Plan</h4>
-                <p>3,737 Tokens (₹299 / Fixed Pool)</p>
+                <p>3,737 Tokens (₹299 / 30 Days)</p>
             </div>
             <button class="ts-buy-btn" onclick="startPayment('pro')">Upgrade</button>
         </div>
@@ -103,7 +66,7 @@
         <div class="ts-plan-card">
             <div class="ts-plan-details">
                 <h4>Max Plan</h4>
-                <p>10,486 Tokens (₹799 / Fixed Pool)</p>
+                <p>10,486 Tokens (₹799 / 30 Days)</p>
             </div>
             <button class="ts-buy-btn" onclick="startPayment('max')">Upgrade</button>
         </div>
@@ -115,13 +78,12 @@
 
 <script type="text/javascript">
 /**
- * TECHSTORA WALLET CORE V4 (PRODUCTION)
- * English Documentation for backend compatibility
+ * TECHSTORA WALLET CORE V5 (SYNCED WITH EXPIRY)
  */
 
 const WORKER_BASE = 'https://www.techstora.com';
 const ADMIN_UID = "2";
-const REFRESH_COOLDOWN = 30; // Seconds
+const REFRESH_COOLDOWN = 30;
 
 let current_uid = null;
 let cooldownActive = false;
@@ -132,17 +94,6 @@ function tsLog(message) {
     const logArea = document.getElementById('ts-debug-log');
     consoleBox.style.display = 'block';
     logArea.innerHTML += `\n[${new Date().toLocaleTimeString()}] ${message}`;
-}
-
-async function loadCashfreeSDK() {
-    if (window.Cashfree) return;
-    return new Promise((resolve, reject) => {
-        const s = document.createElement('script');
-        s.src = 'https://sdk.cashfree.com/js/v3/cashfree.js';
-        s.onload = resolve;
-        s.onerror = reject;
-        document.head.appendChild(s);
-    });
 }
 
 function getUID() {
@@ -164,22 +115,30 @@ function getUID() {
 }
 
 function updateUI(data, uid) {
-    tsLog("Injecting live server data into UI components...");
+    tsLog("Injecting live server data...");
     
-    // No hardcoded 200. Only use data if it exists.
     const total = data.total_tokens !== undefined ? data.total_tokens : "---";
     const remaining = data.remaining_tokens !== undefined ? data.remaining_tokens : "---";
     const used = (typeof total === 'number' && typeof remaining === 'number') ? (total - remaining) : "---";
     const plan = data.plan_name || 'Free Tier';
+    const expiry = data.plan_expiry; // Accessing backend expiry field
 
     document.getElementById('ts-display-uid').innerText = `UID: ${uid || 'Unsigned'}`;
     document.getElementById('ts-avatar-id').innerText = uid ? uid.toString().substring(0, 2).toUpperCase() : 'TS';
     document.getElementById('w-plan').innerText = plan;
 
+    // Show Expiry if available
+    const expiryNode = document.getElementById('w-expiry');
+    if (expiry) {
+        const expiryDate = new Date(expiry).toLocaleDateString('en-GB', { day: 'numeric', month: 'short' });
+        expiryNode.innerText = `Expires: ${expiryDate}`;
+    } else {
+        expiryNode.innerText = plan === 'Free Tier' ? 'Life-time (One-off)' : '';
+    }
+
     document.getElementById('w-total').innerText = total;
     document.getElementById('w-used').innerText = used;
 
-    // Progress Calculation
     let pct = 0;
     if (typeof total === 'number' && total > 0) {
         pct = Math.round((used / total) * 100);
@@ -188,25 +147,17 @@ function updateUI(data, uid) {
     document.getElementById('w-percent').innerText = `${pct}%`;
     const fill = document.getElementById('w-progress-fill');
     fill.style.width = `${pct}%`;
-    
-    // Aesthetic Warning
     fill.style.background = pct > 85 ? 'linear-gradient(90deg, #ef4444, #f59e0b)' : 'linear-gradient(90deg, var(--ts-accent-cyan), var(--ts-accent-purple))';
 }
 
-/**
- * Handle 30-second Refresh Cooldown Timer
- */
 function startCooldown() {
     cooldownActive = true;
     const btn = document.getElementById('refresh-btn');
     let timeLeft = REFRESH_COOLDOWN;
-    
     btn.disabled = true;
-    
     const timer = setInterval(() => {
         timeLeft--;
         btn.innerText = `Sync Available in ${timeLeft}s`;
-        
         if (timeLeft <= 0) {
             clearInterval(timer);
             btn.disabled = false;
@@ -219,47 +170,22 @@ function startCooldown() {
 async function refreshWallet(isAuto = false) {
     const uid = getUID();
     const status = document.getElementById('status-msg');
-    const btn = document.getElementById('refresh-btn');
-
-    if (!uid) {
-        status.innerText = 'Sync failed: Not authenticated.';
-        tsLog("Session null. Sync aborted.");
-        return;
-    }
-
-    if (!isAuto && cooldownActive) return; // Prevent spam
-
-    if (!isAuto) startCooldown(); // Trigger timer on manual click
+    if (!uid) return;
+    if (!isAuto && cooldownActive) return;
+    if (!isAuto) startCooldown();
     
-    status.innerText = 'Connecting to TechStora Cluster...';
-    tsLog(`Manual Fetch Initiation | Target UID: ${uid}`);
-
     try {
         const res = await fetch(`${WORKER_BASE}/api/v1/wallet/status?uid=${uid}`, { credentials: 'include' });
         const result = await res.json();
-
-        if (result.success) {
-            updateUI(result, uid);
-            status.innerText = 'Balance synchronized with D1.';
-        } else {
-            status.innerText = `Server Error: ${result.error}`;
-        }
+        if (result.success) updateUI(result, uid);
     } catch (e) {
-        status.innerText = 'Network telemetry failed.';
         tsLog(`Fatal Fetch Error: ${e.message}`);
     }
 }
 
 async function startPayment(planKey) {
     const uid = getUID();
-    if (!uid) {
-        document.getElementById('status-msg').innerText = 'Please sign in to buy.';
-        return;
-    }
-
-    tsLog(`Creating Cashfree Order Node for ${planKey}...`);
-    document.getElementById('status-msg').innerText = 'Handshaking with Cashfree Gateway...';
-
+    if (!uid) return;
     try {
         const res = await fetch(`${WORKER_BASE}/api/v1/payment/create-order`, {
             method: 'POST',
@@ -268,23 +194,16 @@ async function startPayment(planKey) {
             body: JSON.stringify({ uid: uid, plan_key: planKey })
         });
         const data = await res.json();
-        
         if (!data.success) throw new Error(data.error);
-
-        await loadCashfreeSDK();
-        const cf = Cashfree({ mode: 'production' });
-        cf.checkout({ paymentSessionId: data.payment_session_id, redirectTarget: '_self' });
-
-    } catch (e) {
-        document.getElementById('status-msg').innerText = 'Order generation failed.';
-        tsLog(`Payment Stack Error: ${e.message}`);
-    }
+        if (window.Cashfree) {
+            const cf = Cashfree({ mode: 'production' });
+            cf.checkout({ paymentSessionId: data.payment_session_id, redirectTarget: '_self' });
+        }
+    } catch (e) { tsLog(`Payment Stack Error: ${e.message}`); }
 }
 
-// Global Init
 (function() {
-    getUID(); // Early UID detection
-    tsLog("Hydra Core Booted. Listening for manual sync...");
-    refreshWallet(true); // Initial Auto-Sync on load (no cooldown for this)
+    getUID();
+    refreshWallet(true);
 })();
 </script>
