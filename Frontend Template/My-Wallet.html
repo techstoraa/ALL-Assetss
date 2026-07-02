@@ -25,7 +25,7 @@
     .ts-progress-container { margin-bottom: 24px; }
     .ts-progress-labels { display: flex; justify-content: space-between; font-size: 13px; margin-bottom: 8px; color: var(--ts-text-muted); }
     .ts-progress-track { width: 100%; height: 8px; background: rgba(255, 255, 255, 0.05); border-radius: 10px; overflow: hidden; }
-    .ts-progress-fill { height: 100%; width: 0%; background: linear-gradient(90deg, var(--ts-accent-purple), #ef4444); border-radius: 10px; transition: width 0.8s; }
+    .ts-progress-fill { height: 100%; width: 0%; background: linear-gradient(90deg, var(--ts-accent-cyan), var(--ts-accent-purple)); border-radius: 10px; transition: width 1.2s cubic-bezier(0.19, 1, 0.22, 1); }
     .ts-plans-header { font-size: 12px; font-weight: 700; text-transform: uppercase; color: var(--ts-accent-cyan); margin-bottom: 14px; }
     .ts-plan-card { background: rgba(0, 0, 0, 0.2); border: 1px solid var(--ts-card-border); border-radius: 10px; padding: 16px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; position: relative; }
     .ts-plan-pro { background: rgba(139, 92, 246, 0.05); border: 1px solid transparent; background-clip: padding-box; }
@@ -36,7 +36,8 @@
     .ts-plan-details p { margin: 0; font-size: 12px; color: var(--ts-text-muted); }
     .ts-buy-btn { background: var(--ts-gold); color: #000; border: none; padding: 8px 16px; border-radius: 6px; font-weight: 700; cursor: pointer; z-index: 1; }
     .ts-buy-btn:disabled { opacity: 0.5; cursor: not-allowed; }
-    .ts-refresh-action { background: rgba(255,255,255,0.05); color: #fff; border: 1px solid var(--ts-card-border); padding: 12px; width: 100%; border-radius: 8px; font-weight: 600; cursor: pointer; margin-top: 10px; }
+    .ts-refresh-action { background: rgba(255,255,255,0.05); color: #fff; border: 1px solid var(--ts-card-border); padding: 12px; width: 100%; border-radius: 8px; font-weight: 600; cursor: pointer; margin-top: 10px; transition: all 0.3s; position: relative; }
+    .ts-refresh-action:disabled { opacity: 0.7; cursor: not-allowed; color: var(--ts-text-muted); }
     #status-msg { margin-top: 12px; font-size: 13px; color: var(--ts-text-muted); text-align: center; }
     .ts-debug-box { background: #000; border: 1px solid #ef4444; color: #10b981; font-family: monospace; font-size: 11px; padding: 12px; border-radius: 8px; margin-bottom: 20px; overflow-x: auto; white-space: pre-wrap; display: none; }
     .ts-debug-title { color: #ef4444; font-weight: bold; margin-bottom: 5px; text-transform: uppercase; }
@@ -49,226 +50,215 @@
         </div>
         <div class="ts-profile-info">
             <div id="ts-display-uid" class="ts-profile-username">UID: Fetching...</div>
-            <div id="w-plan" class="ts-profile-badge">Syncing...</div>
+            <div id="w-plan" class="ts-profile-badge">Scanning...</div>
         </div>
     </div>
     <div class="ts-wallet-body">
         <div id="ts-debug-console" class="ts-debug-box">
-            <div class="ts-debug-title">Terminal Diagnostic Log</div>
-            <div id="ts-debug-log">Standing by...</div>
+            <div class="ts-debug-title">Live Node Telemetry</div>
+            <div id="ts-debug-log">System Standby...</div>
         </div>
+
         <div class="ts-token-matrix">
             <div class="ts-matrix-box">
-                <span>Total Tokens</span>
-                <div id="w-total" class="ts-matrix-value">—</div>
+                <span>Maximum Capacity</span>
+                <div id="w-total" class="ts-matrix-value">---</div>
             </div>
             <div class="ts-matrix-box">
-                <span>Used Tokens</span>
-                <div id="w-used" class="ts-matrix-value">—</div>
+                <span>Consumed</span>
+                <div id="w-used" class="ts-matrix-value">---</div>
             </div>
         </div>
+
         <div class="ts-progress-container">
             <div class="ts-progress-labels">
-                <span>Quota Consumption</span>
+                <span>Quota Usage Percentage</span>
                 <span id="w-percent">0%</span>
             </div>
             <div class="ts-progress-track">
                 <div id="w-progress-fill" class="ts-progress-fill"></div>
             </div>
         </div>
-        <div class="ts-plans-header">Upgrade Infrastructure</div>
+
+        <div class="ts-plans-header">Available Subscription Nodes</div>
+        
+        <!-- Plans remain same as per README Lite/Pro/Max -->
         <div class="ts-plan-card">
             <div class="ts-plan-details">
                 <h4>Lite Plan</h4>
-                <p>~1,230 Tokens (₹99 / 30 Days)</p>
+                <p>1,237 Tokens (₹99 / Fixed Pool)</p>
             </div>
             <button class="ts-buy-btn" onclick="startPayment('lite')">Upgrade</button>
         </div>
+
         <div class="ts-plan-card ts-plan-pro">
-            <div class="ts-popular-badge">Most Popular</div>
+            <div class="ts-popular-badge">Top Choice</div>
             <div class="ts-plan-details">
                 <h4>Pro Plan</h4>
-                <p>~3,730 Tokens (₹299 / 30 Days)</p>
+                <p>3,737 Tokens (₹299 / Fixed Pool)</p>
             </div>
             <button class="ts-buy-btn" onclick="startPayment('pro')">Upgrade</button>
         </div>
+
         <div class="ts-plan-card">
             <div class="ts-plan-details">
                 <h4>Max Plan</h4>
-                <p>~10,480 Tokens (₹799 / 30 Days)</p>
+                <p>10,486 Tokens (₹799 / Fixed Pool)</p>
             </div>
             <button class="ts-buy-btn" onclick="startPayment('max')">Upgrade</button>
         </div>
+
         <button id="refresh-btn" class="ts-refresh-action" onclick="refreshWallet()">Force Sync Balance</button>
         <p id="status-msg"></p>
     </div>
 </div>
 
 <script type="text/javascript">
-/* ====================================================================
- * DEBUG_MODE — MASTER SWITCH FOR ON-SCREEN DIAGNOSTIC LOGGING
- * ====================================================================
- * If DEBUG_MODE = false  -> The red "Terminal Diagnostic Log" box will
- *                           NEVER appear on screen, no matter what error
- *                           or event occurs. Users will only see a clean,
- *                           friendly status message (e.g. "Sync failed,
- *                           please try again."). This is the correct
- *                           setting for PRODUCTION / LIVE users.
- *
- * If DEBUG_MODE = true   -> The red diagnostic box WILL appear and will
- *                           print every technical log line (UID detection,
- *                           API URL, HTTP status, raw response, errors).
- *                           Use this ONLY temporarily while you are
- *                           actively debugging an issue. Turn it back to
- *                           false before going live again.
- * ==================================================================== */
-const DEBUG_MODE = false;
+/**
+ * TECHSTORA WALLET CORE V4 (PRODUCTION)
+ * English Documentation for backend compatibility
+ */
 
 const WORKER_BASE = 'https://www.techstora.com';
+const ADMIN_UID = "2";
+const REFRESH_COOLDOWN = 30; // Seconds
 
-let cashfreeSDKPromise = null;
-function loadCashfreeSDK() {
-    if (window.Cashfree) return Promise.resolve();
-    if (cashfreeSDKPromise) return cashfreeSDKPromise;
-    cashfreeSDKPromise = new Promise((resolve, reject) => {
-        const existing = document.querySelector('script[src="https://sdk.cashfree.com/js/v3/cashfree.js"]');
-        if (existing) {
-            existing.addEventListener('load', resolve);
-            existing.addEventListener('error', reject);
-            if (window.Cashfree) resolve();
-            return;
-        }
+let current_uid = null;
+let cooldownActive = false;
+
+function tsLog(message) {
+    if (current_uid !== ADMIN_UID) return;
+    const consoleBox = document.getElementById('ts-debug-console');
+    const logArea = document.getElementById('ts-debug-log');
+    consoleBox.style.display = 'block';
+    logArea.innerHTML += `\n[${new Date().toLocaleTimeString()}] ${message}`;
+}
+
+async function loadCashfreeSDK() {
+    if (window.Cashfree) return;
+    return new Promise((resolve, reject) => {
         const s = document.createElement('script');
         s.src = 'https://sdk.cashfree.com/js/v3/cashfree.js';
         s.onload = resolve;
         s.onerror = reject;
         document.head.appendChild(s);
     });
-    return cashfreeSDKPromise;
-}
-loadCashfreeSDK();
-
-// tsLog only writes to the visible on-screen box when DEBUG_MODE is true.
-// When DEBUG_MODE is false, it does nothing at all (no box, no leak of
-// internal details to end users).
-function tsLog(message) {
-    if (!DEBUG_MODE) return;
-    const consoleBox = document.getElementById('ts-debug-console');
-    const logArea = document.getElementById('ts-debug-log');
-    consoleBox.style.display = 'block';
-    const time = new Date().toLocaleTimeString();
-    logArea.innerHTML += `\n[${time}] ${message}`;
 }
 
 function getUID() {
     try {
-        const targetWindow = window.parent || window;
-        const scripts = targetWindow.document.getElementsByTagName('script');
-        for (let script of scripts) {
-            const text = script.innerHTML || script.textContent;
-            if (text && text.includes('__session_info__') && text.includes('"uid"')) {
-                const match = text.match(/"uid"\s*:\s*(\d+)/);
+        const win = window.parent || window;
+        const scripts = win.document.getElementsByTagName('script');
+        for (let s of scripts) {
+            const t = s.innerHTML || s.textContent;
+            if (t && t.includes('__session_info__') && t.includes('"uid"')) {
+                const match = t.match(/"uid"\s*:\s*(\d+)/);
                 if (match && match[1]) {
-                    tsLog(`✅ Session detected. UID: ${match[1]}`);
+                    current_uid = match[1];
                     return match[1];
                 }
             }
         }
-        tsLog("⚠️ Warning: No Odoo session script found in DOM.");
-    } catch (e) {
-        tsLog(`❌ DOM Access Error: ${e.message}`);
-    }
+    } catch (e) { console.error("Identity extraction failed."); }
     return null;
 }
 
-function renderWallet(data, uid) {
-    tsLog(`🎨 Rendering UI with Data: ${JSON.stringify(data)}`);
-    const safeData = data || { plan_name: 'Free Tier', total_tokens: 200, remaining_tokens: 200 };
+function updateUI(data, uid) {
+    tsLog("Injecting live server data into UI components...");
+    
+    // No hardcoded 200. Only use data if it exists.
+    const total = data.total_tokens !== undefined ? data.total_tokens : "---";
+    const remaining = data.remaining_tokens !== undefined ? data.remaining_tokens : "---";
+    const used = (typeof total === 'number' && typeof remaining === 'number') ? (total - remaining) : "---";
+    const plan = data.plan_name || 'Free Tier';
 
-    if (uid && uid !== "unknown_uid") {
-        document.getElementById('ts-display-uid').innerText = `UID: ${uid}`;
-        document.getElementById('ts-avatar-id').innerText = uid.substring(0, 2).toUpperCase();
-    } else {
-        document.getElementById('ts-display-uid').innerText = `UID: Guest`;
-        document.getElementById('ts-avatar-id').innerText = `TS`;
-    }
-
-    document.getElementById('w-plan').innerText = safeData.plan_name || 'Free Tier';
-
-    let total = safeData.total_tokens || 200;
-    let remaining = safeData.remaining_tokens !== undefined ? safeData.remaining_tokens : 200;
-    let used = Math.max(total - remaining, 0);
+    document.getElementById('ts-display-uid').innerText = `UID: ${uid || 'Unsigned'}`;
+    document.getElementById('ts-avatar-id').innerText = uid ? uid.toString().substring(0, 2).toUpperCase() : 'TS';
+    document.getElementById('w-plan').innerText = plan;
 
     document.getElementById('w-total').innerText = total;
     document.getElementById('w-used').innerText = used;
 
-    let realPercent = total > 0 ? Math.round((used / total) * 100) : 0;
-    let visualPercent = realPercent;
-    if (realPercent > 0 && realPercent < 95) {
-        visualPercent = Math.min(realPercent + 3, 98);
+    // Progress Calculation
+    let pct = 0;
+    if (typeof total === 'number' && total > 0) {
+        pct = Math.round((used / total) * 100);
     }
-
-    document.getElementById('w-percent').innerText = `${realPercent}%`;
-    document.getElementById('w-progress-fill').style.width = `${visualPercent}%`;
+    
+    document.getElementById('w-percent').innerText = `${pct}%`;
+    const fill = document.getElementById('w-progress-fill');
+    fill.style.width = `${pct}%`;
+    
+    // Aesthetic Warning
+    fill.style.background = pct > 85 ? 'linear-gradient(90deg, #ef4444, #f59e0b)' : 'linear-gradient(90deg, var(--ts-accent-cyan), var(--ts-accent-purple))';
 }
 
-async function refreshWallet() {
-    tsLog("🚀 Initiating Force Sync...");
+/**
+ * Handle 30-second Refresh Cooldown Timer
+ */
+function startCooldown() {
+    cooldownActive = true;
+    const btn = document.getElementById('refresh-btn');
+    let timeLeft = REFRESH_COOLDOWN;
+    
+    btn.disabled = true;
+    
+    const timer = setInterval(() => {
+        timeLeft--;
+        btn.innerText = `Sync Available in ${timeLeft}s`;
+        
+        if (timeLeft <= 0) {
+            clearInterval(timer);
+            btn.disabled = false;
+            btn.innerText = 'Force Sync Balance';
+            cooldownActive = false;
+        }
+    }, 1000);
+}
+
+async function refreshWallet(isAuto = false) {
     const uid = getUID();
+    const status = document.getElementById('status-msg');
+    const btn = document.getElementById('refresh-btn');
 
     if (!uid) {
-        document.getElementById('status-msg').innerText = 'Authentication required.';
-        tsLog("❌ Sync aborted: UID is null.");
+        status.innerText = 'Sync failed: Not authenticated.';
+        tsLog("Session null. Sync aborted.");
         return;
     }
 
-    const btn = document.getElementById('refresh-btn');
-    if (btn) btn.disabled = true;
-    document.getElementById('status-msg').innerText = 'Establishing secure tunnel...';
+    if (!isAuto && cooldownActive) return; // Prevent spam
+
+    if (!isAuto) startCooldown(); // Trigger timer on manual click
+    
+    status.innerText = 'Connecting to TechStora Cluster...';
+    tsLog(`Manual Fetch Initiation | Target UID: ${uid}`);
 
     try {
-        const url = `${WORKER_BASE}/api/v1/wallet/status?uid=${uid}`;
-        tsLog(`📡 Fetching API: ${url}`);
+        const res = await fetch(`${WORKER_BASE}/api/v1/wallet/status?uid=${uid}`, { credentials: 'include' });
+        const result = await res.json();
 
-        const res = await fetch(url, { method: 'GET', credentials: 'include' });
-        tsLog(`HTTP Status: ${res.status}`);
-
-        const rawText = await res.text();
-        tsLog(`📦 Raw API Response: ${rawText}`);
-
-        const result = JSON.parse(rawText);
-
-        if (!result.success) {
-            // ✅ Fixed: user sees a clean generic message unless DEBUG_MODE is on.
-            document.getElementById('status-msg').innerText = DEBUG_MODE
-                ? 'Sync Error: ' + result.error
-                : 'Unable to load wallet. Please try again.';
-            tsLog(`❌ Backend Logic Error: ${result.error}`);
-            return;
+        if (result.success) {
+            updateUI(result, uid);
+            status.innerText = 'Balance synchronized with D1.';
+        } else {
+            status.innerText = `Server Error: ${result.error}`;
         }
-
-        // ✅ Fixed: backend returns fields at the root level (not under .data),
-        // so we pass "result" itself, not "result.data".
-        renderWallet(result, uid);
-        document.getElementById('status-msg').innerText = 'Synced successfully.';
-    } catch (err) {
-        document.getElementById('status-msg').innerText = DEBUG_MODE
-            ? 'Network telemetry failed.'
-            : 'Something went wrong. Please try again.';
-        tsLog(`💥 CRITICAL FETCH ERROR: ${err.message}`);
-    } finally {
-        if (btn) btn.disabled = false;
+    } catch (e) {
+        status.innerText = 'Network telemetry failed.';
+        tsLog(`Fatal Fetch Error: ${e.message}`);
     }
 }
 
 async function startPayment(planKey) {
     const uid = getUID();
     if (!uid) {
-        document.getElementById('status-msg').innerText = 'Please log in to purchase.';
+        document.getElementById('status-msg').innerText = 'Please sign in to buy.';
         return;
     }
-    document.getElementById('status-msg').innerText = 'Initializing Payment Gateway...';
-    tsLog(`💳 Initiating Payment for Plan: ${planKey}`);
+
+    tsLog(`Creating Cashfree Order Node for ${planKey}...`);
+    document.getElementById('status-msg').innerText = 'Handshaking with Cashfree Gateway...';
 
     try {
         const res = await fetch(`${WORKER_BASE}/api/v1/payment/create-order`, {
@@ -277,36 +267,24 @@ async function startPayment(planKey) {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ uid: uid, plan_key: planKey })
         });
+        const data = await res.json();
+        
+        if (!data.success) throw new Error(data.error);
 
-        const rawText = await res.text();
-        tsLog(`📦 Payment API Response: ${rawText}`);
-        const data = JSON.parse(rawText);
-
-        if (!data.success) {
-            document.getElementById('status-msg').innerText = DEBUG_MODE
-                ? 'Order Error: ' + data.error
-                : 'Unable to start payment. Please try again.';
-            return;
-        }
-
-        tsLog('⏳ Waiting for Cashfree SDK...');
         await loadCashfreeSDK();
+        const cf = Cashfree({ mode: 'production' });
+        cf.checkout({ paymentSessionId: data.payment_session_id, redirectTarget: '_self' });
 
-        const cashfree = Cashfree({ mode: 'production' });
-        cashfree.checkout({
-            paymentSessionId: data.payment_session_id,
-            redirectTarget: '_self'
-        });
-    } catch (err) {
-        document.getElementById('status-msg').innerText = DEBUG_MODE
-            ? 'Transaction instance failed.'
-            : 'Payment could not be started. Please try again.';
-        tsLog(`💥 PAYMENT ERROR: ${err.message}`);
+    } catch (e) {
+        document.getElementById('status-msg').innerText = 'Order generation failed.';
+        tsLog(`Payment Stack Error: ${e.message}`);
     }
 }
 
+// Global Init
 (function() {
-    tsLog("⚡ HydraJS Engine Booting...");
-    refreshWallet();
+    getUID(); // Early UID detection
+    tsLog("Hydra Core Booted. Listening for manual sync...");
+    refreshWallet(true); // Initial Auto-Sync on load (no cooldown for this)
 })();
 </script>
